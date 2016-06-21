@@ -50,7 +50,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
 )
 
-ROOT_URLCONF = 'MoguScan.urls'
+ROOT_URLCONF = 'Eagle.urls'
 
 TEMPLATES = [
     {
