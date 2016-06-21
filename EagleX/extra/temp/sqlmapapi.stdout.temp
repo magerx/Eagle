@@ -1,0 +1,125 @@
+[15:41:38] [INFO] Running REST-JSON API server at '127.0.0.1:6789'..
+[15:41:38] [INFO] Admin ID: 9aec17b7c470d1df1c9735961c1fc7f4
+[15:41:38] [DEBUG] IPC database: /var/folders/6g/m0kp8ys17xb95sdhr2_mz0xc0000gn/T/sqlmapipc-i38uzM
+[15:41:38] [DEBUG] REST-JSON API server connected to IPC database
+[15:41:41] [DEBUG] Created new task: '03d0c56bdf81bae2'
+[15:41:41] [DEBUG] Created new task: 'd721db93217be146'
+[15:41:41] [DEBUG] Created new task: '792bfc52bfa68231'
+[15:41:41] [DEBUG] Created new task: '92d054f1482bfbc8'
+[15:41:41] [DEBUG] [d721db93217be146] Requested to set options
+[15:41:42] [DEBUG] [92d054f1482bfbc8] Requested to set options
+[15:41:42] [DEBUG] [792bfc52bfa68231] Requested to set options
+[15:41:42] [DEBUG] [03d0c56bdf81bae2] Requested to set options
+[15:41:42] [DEBUG] [d721db93217be146] Started scan
+[15:41:42] [DEBUG] [92d054f1482bfbc8] Started scan
+[15:41:42] [DEBUG] [792bfc52bfa68231] Started scan
+[15:41:42] [DEBUG] [03d0c56bdf81bae2] Started scan
+[15:41:42] [DEBUG] [d721db93217be146] Retrieved scan status
+[15:41:42] [DEBUG] [92d054f1482bfbc8] Retrieved scan status
+[15:41:42] [DEBUG] [792bfc52bfa68231] Retrieved scan status
+[15:41:42] [DEBUG] [03d0c56bdf81bae2] Retrieved scan status
+[15:41:44] [DEBUG] [d721db93217be146] Retrieved scan status
+[15:41:44] [DEBUG] [92d054f1482bfbc8] Retrieved scan status
+[15:41:44] [DEBUG] [792bfc52bfa68231] Retrieved scan status
+[15:41:44] [DEBUG] [03d0c56bdf81bae2] Retrieved scan status
+[15:41:46] [DEBUG] [d721db93217be146] Retrieved scan status
+[15:41:46] [DEBUG] [92d054f1482bfbc8] Retrieved scan status
+[15:41:46] [DEBUG] [792bfc52bfa68231] Retrieved scan status
+[15:41:46] [DEBUG] [92d054f1482bfbc8] Retrieved scan status
+[15:41:46] [DEBUG] [792bfc52bfa68231] Retrieved scan status
+[15:41:46] [DEBUG] [03d0c56bdf81bae2] Retrieved scan status
+[15:41:46] [DEBUG] [92d054f1482bfbc8] Retrieved scan data and error messages
+[15:41:46] [DEBUG] [792bfc52bfa68231] Retrieved scan data and error messages
+[15:41:46] [DEBUG] [03d0c56bdf81bae2] Retrieved scan status
+[15:41:46] [DEBUG] [92d054f1482bfbc8] Deleted task
+[15:41:46] [DEBUG] [03d0c56bdf81bae2] Retrieved scan data and error messages
+[15:41:46] [DEBUG] [792bfc52bfa68231] Deleted task
+[15:41:46] [DEBUG] [03d0c56bdf81bae2] Deleted task
+[15:41:48] [DEBUG] [d721db93217be146] Retrieved scan status
+[15:41:50] [DEBUG] [d721db93217be146] Retrieved scan status
+[15:41:52] [DEBUG] [d721db93217be146] Retrieved scan status
+[15:41:52] [DEBUG] [d721db93217be146] Retrieved scan status
+[15:41:52] [DEBUG] [d721db93217be146] Retrieved scan data and error messages
+[15:41:52] [DEBUG] [d721db93217be146] Deleted task
+[15:41:52] [DEBUG] Created new task: '94be302de4ce9973'
+[15:41:52] [DEBUG] [94be302de4ce9973] Requested to set options
+[15:41:52] [DEBUG] [94be302de4ce9973] Started scan
+[15:41:53] [DEBUG] [94be302de4ce9973] Retrieved scan status
+[15:41:55] [DEBUG] [94be302de4ce9973] Retrieved scan status
+[15:41:55] [DEBUG] Created new task: '11e2621442941796'
+[15:41:55] [DEBUG] Created new task: '01dc640ade447cea'
+[15:41:55] [DEBUG] Created new task: '7140b70d595cdc11'
+[15:41:55] [DEBUG] [11e2621442941796] Requested to set options
+[15:41:56] [DEBUG] [01dc640ade447cea] Requested to set options
+[15:41:56] [DEBUG] [11e2621442941796] Started scan
+[15:41:56] [DEBUG] [7140b70d595cdc11] Requested to set options
+[15:41:56] [DEBUG] [01dc640ade447cea] Started scan
+[15:41:56] [DEBUG] [11e2621442941796] Retrieved scan status
+[15:41:56] [DEBUG] [7140b70d595cdc11] Started scan
+[15:41:56] [DEBUG] [01dc640ade447cea] Retrieved scan status
+[15:41:56] [DEBUG] [7140b70d595cdc11] Retrieved scan status
+[15:41:57] [DEBUG] [94be302de4ce9973] Retrieved scan status
+[15:41:57] [DEBUG] [94be302de4ce9973] Retrieved scan status
+[15:41:57] [DEBUG] [94be302de4ce9973] Retrieved scan data and error messages
+[15:41:57] [DEBUG] [94be302de4ce9973] Deleted task
+[15:41:58] [DEBUG] [11e2621442941796] Retrieved scan status
+[15:41:58] [DEBUG] [01dc640ade447cea] Retrieved scan status
+[15:41:58] [DEBUG] [7140b70d595cdc11] Retrieved scan status
+[15:42:00] [DEBUG] [11e2621442941796] Retrieved scan status
+[15:42:00] [DEBUG] [11e2621442941796] Retrieved scan status
+[15:42:00] [DEBUG] [11e2621442941796] Retrieved scan data and error messages
+[15:42:00] [DEBUG] [11e2621442941796] Deleted task
+[15:42:00] [DEBUG] [01dc640ade447cea] Retrieved scan status
+[15:42:00] [DEBUG] [7140b70d595cdc11] Retrieved scan status
+[15:42:00] [DEBUG] [7140b70d595cdc11] Retrieved scan status
+[15:42:00] [DEBUG] [7140b70d595cdc11] Retrieved scan data and error messages
+[15:42:00] [DEBUG] [7140b70d595cdc11] Deleted task
+[15:42:01] [DEBUG] Created new task: '2df131f14953b74b'
+[15:42:01] [DEBUG] Created new task: '201b0abf6aa34e98'
+[15:42:01] [DEBUG] [2df131f14953b74b] Requested to set options
+[15:42:01] [DEBUG] [201b0abf6aa34e98] Requested to set options
+[15:42:01] [DEBUG] [2df131f14953b74b] Started scan
+[15:42:01] [DEBUG] [201b0abf6aa34e98] Started scan
+[15:42:01] [DEBUG] [2df131f14953b74b] Retrieved scan status
+[15:42:01] [DEBUG] [201b0abf6aa34e98] Retrieved scan status
+[15:42:02] [DEBUG] [01dc640ade447cea] Retrieved scan status
+[15:42:02] [DEBUG] [01dc640ade447cea] Retrieved scan status
+[15:42:02] [DEBUG] [01dc640ade447cea] Retrieved scan data and error messages
+[15:42:02] [DEBUG] [01dc640ade447cea] Deleted task
+[15:42:03] [DEBUG] [2df131f14953b74b] Retrieved scan status
+[15:42:03] [DEBUG] [201b0abf6aa34e98] Retrieved scan status
+[15:42:05] [DEBUG] [2df131f14953b74b] Retrieved scan status
+[15:42:05] [DEBUG] [2df131f14953b74b] Retrieved scan status
+[15:42:05] [DEBUG] [201b0abf6aa34e98] Retrieved scan status
+[15:42:05] [DEBUG] [2df131f14953b74b] Retrieved scan data and error messages
+[15:42:05] [DEBUG] [201b0abf6aa34e98] Retrieved scan status
+[15:42:05] [DEBUG] [2df131f14953b74b] Deleted task
+[15:42:05] [DEBUG] [201b0abf6aa34e98] Retrieved scan data and error messages
+[15:42:05] [DEBUG] [201b0abf6aa34e98] Deleted task
+[15:42:08] [DEBUG] Created new task: '5a97b4024ef4fa29'
+[15:42:08] [DEBUG] [5a97b4024ef4fa29] Requested to set options
+[15:42:08] [DEBUG] [5a97b4024ef4fa29] Started scan
+[15:42:08] [DEBUG] [5a97b4024ef4fa29] Retrieved scan status
+[15:42:10] [DEBUG] [5a97b4024ef4fa29] Retrieved scan status
+[15:42:12] [DEBUG] [5a97b4024ef4fa29] Retrieved scan status
+[15:42:12] [DEBUG] [5a97b4024ef4fa29] Retrieved scan status
+[15:42:12] [DEBUG] [5a97b4024ef4fa29] Retrieved scan data and error messages
+[15:42:12] [DEBUG] [5a97b4024ef4fa29] Deleted task
+[15:42:15] [DEBUG] Created new task: '69a4abb581538620'
+[15:42:15] [DEBUG] [69a4abb581538620] Requested to set options
+[15:42:15] [DEBUG] [69a4abb581538620] Started scan
+[15:42:15] [DEBUG] [69a4abb581538620] Retrieved scan status
+[15:42:17] [DEBUG] [69a4abb581538620] Retrieved scan status
+[15:42:19] [DEBUG] [69a4abb581538620] Retrieved scan status
+[15:42:19] [DEBUG] [69a4abb581538620] Retrieved scan status
+[15:42:19] [DEBUG] [69a4abb581538620] Retrieved scan data and error messages
+[15:42:19] [DEBUG] [69a4abb581538620] Deleted task
+[15:42:26] [DEBUG] Created new task: 'e65c2b3dfa4901f6'
+[15:42:26] [DEBUG] [e65c2b3dfa4901f6] Requested to set options
+[15:42:26] [DEBUG] [e65c2b3dfa4901f6] Started scan
+[15:42:26] [DEBUG] [e65c2b3dfa4901f6] Retrieved scan status
+[15:42:28] [DEBUG] [e65c2b3dfa4901f6] Retrieved scan status
+[15:42:30] [DEBUG] [e65c2b3dfa4901f6] Retrieved scan status
+[15:42:30] [DEBUG] [e65c2b3dfa4901f6] Retrieved scan status
+[15:42:30] [DEBUG] [e65c2b3dfa4901f6] Retrieved scan data and error messages
+[15:42:30] [DEBUG] [e65c2b3dfa4901f6] Deleted task
