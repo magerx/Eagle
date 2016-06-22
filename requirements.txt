@@ -1,4 +1,4 @@
-configparser==3.3.0.post2
+configparser == 3.3.0.post2
 Django == 1.8.4
 gevent == 1.1.0
 lxml == 3.6.0
