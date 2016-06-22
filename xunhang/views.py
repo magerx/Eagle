@@ -3,7 +3,7 @@
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 
-from EagleX.MoguXSrv import MoguXSrv
+from EagleX.EagleXSrv import MoguXSrv
 
 import sqlite3
 import json
@@ -11,7 +11,7 @@ from ConfigParser import ConfigParser
 from configobj import ConfigObj
 
 mx = None
-config_file = './EagleX/MoguXConfig.ini'
+config_file = './EagleX/EagleXConfig.ini'
 
 def index(request):
     global config_file

@@ -5,7 +5,7 @@ File:       cli.py
 Author:     magerx@paxmac.org
 """
 
-from EagleX.MoguXSrv import MoguXSrv
+from EagleX.EagleXSrv import MoguXSrv
 
 if __name__ == '__main__':
     try:
