@@ -12,6 +12,7 @@ from EagleX.scanner.util.URLUtility import extract_path_query
 from EagleX.scanner.util.ParallelDispatcher import ParallelDispatcher
 from EagleX.scanner.util.PayloadSender import send_payload
 
+
 class UrlRedirect(object):
     """
     URL跳转的检测，通过是否跳转到指定页面判断
@@ -35,9 +36,9 @@ class UrlRedirect(object):
         self.seconds_wait = 2
         self.exit_flag = False
         test_urls = [
-                    'http://www.baidu.com/',
-                    '//baidu.com'
-                    ]
+            'http://www.baidu.com/',
+            '//baidu.com'
+        ]
 
         self.payloads = test_urls
 
@@ -50,7 +51,7 @@ class UrlRedirect(object):
             owner=self.owner,
             start_index=0,
             seconds_wait=2
-            )
+        )
 
     def engine_start(self):
         """

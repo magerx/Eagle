@@ -13,15 +13,16 @@ from EagleX.scanner.core.VulScanner import VulScanner
 from EagleX.scanner.util.EyeOnKeyboard import EyeOnKeyboard
 
 # 配置文件路径
-CONFIG_FILE = './EagleX/EagleXConfig.ini'
+CONFIG_FILE = os.path.dirname(__file__) + '/EagleXConfig.ini'
 
-class MoguXSrv(object):
+
+class EagleXSrv(object):
     """
     外面再套层壳
     """
 
     def __init__(self):
-        super(MoguXSrv, self).__init__()
+        super(EagleXSrv, self).__init__()
         self.scanner = None
         self.scanner_thread = None
 
@@ -61,4 +62,3 @@ class MoguXSrv(object):
             self.scanner.exit()
             while self.scanner_thread.is_alive():
                 time.sleep(0.5)
-

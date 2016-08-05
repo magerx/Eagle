@@ -14,6 +14,7 @@ import os
 处理各种URL的函数
 """
 
+
 def get_domain(url):
     """
     :url:       url
@@ -21,6 +22,7 @@ def get_domain(url):
     """
     url = urlparse(url)
     return '://'.join([url.scheme, url.netloc])
+
 
 class changable_urlcomp(object):
     """
@@ -50,7 +52,8 @@ class changable_urlcomp(object):
             params=self.params,
             query=self.query,
             fragment=self.fragment
-            )
+        )
+
 
 def real_url_process(link, url):
     """
@@ -66,12 +69,12 @@ def real_url_process(link, url):
     url.query = link.query
     url.params = link.params = ''
     if link.fragment:
-        url.fragment = ''#link.fragment
+        url.fragment = ''  # link.fragment
 
     # link中有域名
-    if link.netloc :
+    if link.netloc:
         # link为自带协议的，直接返回
-        if link.scheme :
+        if link.scheme:
             return link
         # 使用url的协议
         else:
@@ -90,8 +93,9 @@ def real_url_process(link, url):
     # link为相对路径，同时不以'/'结尾
     tmp = url.path.split('/')
     del tmp[-1]
-    url.path = "{0}/{1}".format('/'.join(tmp),link.path) # 相对路径则通过当前目录进行拼接+ '/' + link.path
+    url.path = "{0}/{1}".format('/'.join(tmp), link.path)  # 相对路径则通过当前目录进行拼接+ '/' + link.path
     return url
+
 
 def url_process(link, url):
     """
@@ -102,8 +106,9 @@ def url_process(link, url):
     u = real_url_process(link, url)
 
     # 处理掉url中连续//之类的路径问题
-    u.path = os.path.realpath('/'+u.path)
+    u.path = os.path.realpath('/' + u.path)
     return urlunparse(u.to_standard())
+
 
 def get_pattern(url):
     """
@@ -117,20 +122,21 @@ def get_pattern(url):
     parse = urlparse(url)
     path = parse.path
 
-    #参数抽离
+    # 参数抽离
     query = sort_query(parse.query)
 
-    #重新封装文件名,同后缀文件名为数字的统一认为相似
+    # 重新封装文件名,同后缀文件名为数字的统一认为相似
     filename = os.path.splitext(path.split('/')[-1])
     ext = filename[1]
     prefix = filename[0]
     if prefix.isdigit():
         prefix = '%d'
-    filename = prefix+ext
-    path = '{0}/{1}'.format(os.path.dirname(path),filename)
-    url = urlunparse((parse.scheme,parse.netloc, path, parse.params, query, parse.fragment))
+    filename = prefix + ext
+    path = '{0}/{1}'.format(os.path.dirname(path), filename)
+    url = urlunparse((parse.scheme, parse.netloc, path, parse.params, query, parse.fragment))
 
     return url
+
 
 def sort_query(query):
     """
@@ -145,7 +151,7 @@ def sort_query(query):
 
     # 链接成参数列表
 
-   #对URL进行抽象处理
+    # 对URL进行抽象处理
     newquery = list()
 
     for param in query:
@@ -161,7 +167,8 @@ def sort_query(query):
             newquery.append('='.join(tmp))
     newquery = '&'.join(newquery)
 
-    return newquery#parameters
+    return newquery  # parameters
+
 
 def extract_path_domain(url):
     """
@@ -175,7 +182,7 @@ def extract_path_domain(url):
     if ';' in path:
         path = path[0:path.find(';')] + '.'
 
-    if len(path) > 0: #and path[-1] == '/':
+    if len(path) > 0:  # and path[-1] == '/':
         path = os.path.dirname(path)
     # elif len(path) == 0:
     else:
@@ -183,13 +190,14 @@ def extract_path_domain(url):
 
     return path, domain
 
+
 def extract_path_query(url):
     """
     将url分成路径和查询
     :url:       目标URL
     :return:    (path, query)其中query是列表形式
     """
-    url, query = url.split('?',1)
+    url, query = url.split('?', 1)
 
     querys = query.split('&')
     res = []
@@ -201,10 +209,11 @@ def extract_path_query(url):
 
     return url, res
 
+
 def extract_netloc_path(url):
     """
     :url:       url
     :return:    (domain, path)
     """
     url = urlparse(url)
-    return url.netloc#, url.path
+    return url.netloc  # , url.path

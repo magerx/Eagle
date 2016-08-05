@@ -1,0 +1,22 @@
+Traceback (most recent call last):
+  File "./EagleX/sqlmap/sqlmapapi.py", line 42, in <module>
+    server(args.host, args.port)
+  File "/Users/hanshui/PycharmProjects/Eagle/EagleX/sqlmap/lib/utils/api.py", line 640, in server
+    run(host=host, port=port, quiet=True, debug=False)
+  File "/Users/hanshui/PycharmProjects/Eagle/EagleX/sqlmap/thirdparty/bottle/bottle.py", line 2707, in run
+    server.run(app)
+  File "/Users/hanshui/PycharmProjects/Eagle/EagleX/sqlmap/thirdparty/bottle/bottle.py", line 2389, in run
+    srv = make_server(self.host, self.port, handler, **self.options)
+  File "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/wsgiref/simple_server.py", line 151, in make_server
+    server = server_class((host, port), handler_class)
+  File "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/SocketServer.py", line 420, in __init__
+    self.server_bind()
+  File "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/wsgiref/simple_server.py", line 48, in server_bind
+    HTTPServer.server_bind(self)
+  File "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/BaseHTTPServer.py", line 108, in server_bind
+    SocketServer.TCPServer.server_bind(self)
+  File "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/SocketServer.py", line 434, in server_bind
+    self.socket.bind(self.server_address)
+  File "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/socket.py", line 228, in meth
+    return getattr(self._sock,name)(*args)
+socket.error: [Errno 48] Address already in use

@@ -7,11 +7,10 @@ Author:     magerx@paxmac.org
 
 import urllib2
 import re
-import threading
 import time
-
 from EagleX.scanner.util.URLUtility import url_process
 from EagleX.scanner.util.Header import *
+
 
 class Robots(object):
     """

@@ -6,14 +6,12 @@ Author:     magerx@paxmac.org
 """
 
 import time
-import threading
-import re
-
 from EagleX.scanner.info_leakage.dic import *
 from EagleX.scanner.util.Header import *
 from EagleX.scanner.util.URLUtility import extract_path_query
 from EagleX.scanner.util.ParallelDispatcher import ParallelDispatcher
 from EagleX.scanner.util.PayloadSender import send_payload
+
 
 class INFOLeakage(object):
     """
@@ -47,8 +45,7 @@ class INFOLeakage(object):
             owner=self.owner,
             start_index=0,
             seconds_wait=2
-            )
-
+        )
 
         self.payloads = pathlist
 
@@ -102,7 +99,8 @@ class INFOLeakage(object):
                 continue
 
             # 打印，并保存payload
-            self.log(['[VULNERABLE] ' + task[0], '    [LOCATION] ' + query[index][0], '    [PAYLOAD] ' + payload], not DEBUG)
+            self.log(['[VULNERABLE] ' + task[0], '    [LOCATION] ' + query[index][0], '    [PAYLOAD] ' + payload],
+                     not DEBUG)
             self.kb.save_data(INFO, (task[0], query[index][0], payload, 'INFO'))
             break
         else:

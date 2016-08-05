@@ -89,15 +89,15 @@
             var thread_num_cmd_exec = document.getElementById('thread_num_cmd_exec').value;
 
             if ((start_url == '' || depth == '' || thread_num_download == '' || allow_domain == '' || restrict_path == '' || filetype_whitelist == '') ||
-                (checkbox_proxy && proxy_port == '') ||
-                (checkbox_sql && (sqlmapapi_addr == '' || sqlmapapi_port == '' || thread_num_sql == '')) ||
-                (checkbox_xss && ((checkbox_dom_xss && thread_num_dom_xss == '') || (checkbox_reflected_xss && thread_num_reflected_xss == ''))) ||
-                (checkbox_log && log_path == '') ||
-                (checkbox_dir_burst && (thread_num_dir_burst == '' || dir_burst_dict_path == '')) ||
-                (checkbox_form_auth && (form_auth_pass_dict_path == '' || form_auth_user_dict_path == '')) ||
-                (checkbox_lfi && thread_num_lfi == '') ||
-                (checkbox_cmd && thread_num_cmd_exec == '')
-                ) {
+                    (checkbox_proxy && proxy_port == '') ||
+                    (checkbox_sql && (sqlmapapi_addr == '' || sqlmapapi_port == '' || thread_num_sql == '')) ||
+                    (checkbox_xss && ((checkbox_dom_xss && thread_num_dom_xss == '') || (checkbox_reflected_xss && thread_num_reflected_xss == ''))) ||
+                    (checkbox_log && log_path == '') ||
+                    (checkbox_dir_burst && (thread_num_dir_burst == '' || dir_burst_dict_path == '')) ||
+                    (checkbox_form_auth && (form_auth_pass_dict_path == '' || form_auth_user_dict_path == '')) ||
+                    (checkbox_lfi && thread_num_lfi == '') ||
+                    (checkbox_cmd && thread_num_cmd_exec == '')
+            ) {
                 toastr.info('设置不完整，自己找');
                 return;
             }
@@ -111,42 +111,42 @@
             data += '&filetype_whitelist=' + encodeURIComponent(filetype_whitelist);
             data += '&cookie=' + encodeURIComponent(cookie);
 
-            data += '&robots=' + (checkbox_robots ? 'on': 'off');
+            data += '&robots=' + (checkbox_robots ? 'on' : 'off');
 
-            data += '&proxy=' + (checkbox_proxy ? 'on': 'off');
+            data += '&proxy=' + (checkbox_proxy ? 'on' : 'off');
             data += '&proxy_port=' + encodeURIComponent(proxy_port);
 
-            data += '&sql=' + (checkbox_sql ? 'on': 'off');
+            data += '&sql=' + (checkbox_sql ? 'on' : 'off');
             data += '&sqlmapapi_addr=' + encodeURIComponent(sqlmapapi_addr);
             data += '&sqlmapapi_port=' + encodeURIComponent(sqlmapapi_port);
             data += '&thread_num_sql=' + encodeURIComponent(thread_num_sql);
 
-            data += '&xss=' + (checkbox_xss ? 'on': 'off');
-            data += '&dom_xss=' + (checkbox_dom_xss ? 'on': 'off');
+            data += '&xss=' + (checkbox_xss ? 'on' : 'off');
+            data += '&dom_xss=' + (checkbox_dom_xss ? 'on' : 'off');
             data += '&thread_num_dom_xss=' + encodeURIComponent(thread_num_dom_xss);
-            data += '&reflected_xss=' + (checkbox_reflected_xss ? 'on': 'off');
+            data += '&reflected_xss=' + (checkbox_reflected_xss ? 'on' : 'off');
             data += '&thread_num_reflected_xss=' + encodeURIComponent(thread_num_reflected_xss);
 
-            data += '&log=' + (checkbox_log ? 'on': 'off');
+            data += '&log=' + (checkbox_log ? 'on' : 'off');
             data += '&log_path=' + encodeURIComponent(log_path);
 
-            data += '&dir_burst=' + (checkbox_dir_burst ? 'on': 'off');
+            data += '&dir_burst=' + (checkbox_dir_burst ? 'on' : 'off');
             data += '&thread_num_dir_burst=' + encodeURIComponent(thread_num_dir_burst);
             data += '&dir_burst_dict_path=' + encodeURIComponent(dir_burst_dict_path);
 
-            data += '&form_auth=' + (checkbox_form_auth ? 'on': 'off');
+            data += '&form_auth=' + (checkbox_form_auth ? 'on' : 'off');
             data += '&form_auth_user_dict_path=' + encodeURIComponent(form_auth_user_dict_path);
             data += '&form_auth_pass_dict_path=' + encodeURIComponent(form_auth_pass_dict_path);
 
-            data += '&lfi=' + (checkbox_lfi ? 'on': 'off');
+            data += '&lfi=' + (checkbox_lfi ? 'on' : 'off');
             data += '&thread_num_lfi=' + encodeURIComponent(thread_num_lfi);
 
-            data += '&cmd=' + (checkbox_cmd ? 'on': 'off');
+            data += '&cmd=' + (checkbox_cmd ? 'on' : 'off');
             data += '&thread_num_cmd_exec=' + encodeURIComponent(thread_num_cmd_exec);
 
-            send_post('/config/', data, function(text) {
+            send_post('/config/', data, function (text) {
             });
-            send_get('/engine_start_main/', function(text) {
+            send_get('/engine_start_main/', function (text) {
                 window.location.href = '/result/';
             });
         }
@@ -157,299 +157,320 @@
 
 <body>
 
-    <div id="wrapper">
+<div id="wrapper">
 
-        <!-- Navigation -->
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
 
-                <a class="navbar-brand" href="/">蘑菇街安全巡航 v1.0</a>
-            </div>
-            <!-- /.navbar-header -->
-
-            <!-- /.navbar-top-links -->
-
-            <div class="navbar-default sidebar" role="navigation">
-                <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav" id="side-menu">
-
-                        <li>
-                            <a href="/"><i class="fa fa-dashboard fa-fw"></i> 扫描器</a>
-                        </li>
-                        <li>
-                            <a href="/"><i class="fa fa-bar-chart-o fa-fw"></i> 爬虫</a>
-                        </li>
-                        <li>
-                            <a href="/"><i class="fa fa-table fa-fw"></i> 表单猜解</a>
-                        </li>
-                        <li>
-                            <a href="/"><i class="fa fa-edit fa-fw"></i> SQL扫描</a>
-                        </li>
-                        <li>
-                            <a href="/"><i class="fa fa-sitemap fa-fw"></i> XSS扫描</a>
-                        </li>
-                        <li>
-                            <a href="/result/"><i class="fa fa-envelope fa-fw"></i> 结果查看</a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- /.sidebar-collapse -->
-            </div>
-            <!-- /.navbar-static-side -->
-        </nav>
-
-        <div id="page-wrapper" style="overflow: auto">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h2 class="page-header">扫描器设置
-                        <button type="button" class="btn btn-outline btn-danger pull-right" onclick="do_start()">START
-                        </button>
-                    </h2>
-                </div>
-
-                <!-- /.col-lg-12 -->
-            </div>
-            <!-- /.row -->
-            <div class="row col-lg-12">
-                <!-- 爬虫 -->
-                <div>
-                    <form class="form-horizontal">
-                        <div class="form-group">
-                            <label class='col-xs-1' for="start_url">起始<br>链接</label>
-                            <div class="col-xs-7">
-                                <input class="form-control" id="start_url" value="{{ Crawler.start_url }}" onchange="modify_domain()">
-                            </div>
-                            <label class='col-xs-1' for="depth">爬行<br>深度</label>
-                            <div class="col-xs-1">
-                                <input class="form-control" id="depth" value="{{ Crawler.depth_limit }}">
-                            </div>
-                            <label class='col-xs-1' for="thread_num_download">线程<br>数量</label>
-                            <div class="col-xs-1">
-                                <input class="form-control" id="thread_num_download" value="{{ Crawler.thread_num_download }}">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class='col-xs-1' for="allow_domain">域名<br>限制</label>
-                            <div class="col-xs-3">
-                                <input class="form-control" id="allow_domain" value="{{ Crawler.allow_domain }}">
-                            </div>
-                            <label class='col-xs-1' for="restrict_path">目录<br>限制</label>
-                            <div class="col-xs-2">
-                                <input class="form-control" id="restrict_path" value="{{ Crawler.restrict_path }}">
-                            </div>
-                            <label class='col-xs-1' for="filetype_whitelist">文件<br>类型</label>
-                            <div class="col-xs-4">
-                                <input class="form-control" id="filetype_whitelist" value="{{ Crawler.filetype_whitelist }}">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class='col-xs-1' for="cookie">Cookie</label>
-                            <div class="col-xs-11">
-                                <input class="form-control" id="cookie" value="{{ Cookie.cookie }}">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="checkbox col-xs-2">
-                                <label>
-                                    <input type="checkbox" id="checkbox_robots" checked="true"> Robots
-                                </label>
-                            </div>
-                            <label class='col-xs-1'>
-                                <input type="checkbox" id="checkbox_proxy" checked="true" onchange="toggle_display('config_proxy', 'checkbox_proxy')"> 代理
-                            </label>
-                            <div id='config_proxy' class='col-xs-4'>
-                                <label class='col-xs-4' for="proxy_port">监听端口</label>
-                                <div class="col-xs-8">
-                                    <input class="form-control" id="proxy_port" value="{{ Crawler.click_proxy_port }}">
-                                </div>
-                            </div>
-                            <label class='col-xs-1'>
-                                <input type="checkbox" id="checkbox_lfi" checked="true" onchange="toggle_display('config_lfi', 'checkbox_lfi')"> LFI
-                            </label>
-                            <div id='config_lfi' class='col-xs-4'>
-                                <label class='col-xs-4' for="thread_num_lfi">线程数量</label>
-                                <div class="col-xs-8">
-                                    <input class="form-control" id="thread_num_lfi" value="{{ LFIScanner.thread_num }}">
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-                <div>
-                    <!-- SQL扫描 -->
-                    <form class="form-horizontal">
-                        <div class="form-group">
-                            <div class="checkbox col-xs-2">
-                                <label>
-                                    <input type="checkbox" id="checkbox_sql" checked="true" onchange="toggle_display('config_sql', 'checkbox_sql')">SQL扫描
-                                </label>
-                            </div>
-                            <div class='col-xs-10' id='config_sql'>
-                                <label class='col-xs-2' for="sqlmapapi_addr">SqlmapApi<br>地址</label>
-                                <div class="col-xs-3">
-                                    <input class="form-control" id="sqlmapapi_addr" value="{{ SQLScanner.sqlmapapi_server_addr }}">
-                                </div>
-                                <label class='col-xs-2' for="sqlmapapi_port">SqlmapApi<br>端口</label>
-                                <div class="col-xs-2">
-                                    <input class="form-control" id="sqlmapapi_port" value="{{ SQLScanner.sqlmapapi_server_port }}">
-                                </div>
-                                <label class='col-xs-1' for="thread_num_sql">线程</label>
-                                <div class="col-xs-2">
-                                    <input class="form-control" id="thread_num_sql" value="{{ SQLScanner.thread_num }}">
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-
-                    <!-- XSS扫描 -->
-                    <form class="form-horizontal">
-                        <div class="form-group">
-                            <div class="checkbox col-xs-2">
-                                <label>
-                                    <input type="checkbox" id="checkbox_xss" checked="true" onchange="toggle_display('config_xss', 'checkbox_xss')">XSS扫描
-                                </label>
-                            </div>
-                            <div class="col-xs-10" id='config_xss'>
-                                <div class="checkbox col-xs-2">
-                                    <label>
-                                        <input type="checkbox" id="checkbox_dom_xss" checked="true" onchange="toggle_display('config_dom_xss', 'checkbox_dom_xss')">DOM型
-                                    </label>
-                                </div>
-                                <div id='config_dom_xss' class='col-xs-4'>
-                                    <label class='col-xs-4' for="thread_num_dom_xss">线程数</label>
-                                    <div class="col-xs-8">
-                                        <input class="form-control" id="thread_num_dom_xss" value="{{ XSSScanner.thread_num_dom }}">
-                                    </div>
-                                </div>
-                                <div class="checkbox col-xs-2">
-                                    <label>
-                                        <input type="checkbox" id="checkbox_reflected_xss" checked="true" onchange="toggle_display('config_reflected_xss', 'checkbox_reflected_xss')">反射型
-                                    </label>
-                                </div>
-                                <div id='config_reflected_xss' class='col-xs-4'>
-                                    <label class='col-xs-4' for="thread_num_reflected_xss">线程数</label>
-                                    <div class="col-xs-8">
-                                        <input class="form-control" id="thread_num_reflected_xss" value="{{ XSSScanner.thread_num_reflected }}">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-
-                    <!-- XSS扫描 -->
-                    <form class="form-horizontal">
-                        <div class="form-group">
-                            <div class="checkbox col-xs-2">
-                                <label>
-                                    <input type="checkbox" id="checkbox_cmd" checked="true" onchange="toggle_display('config_cmd', 'checkbox_cmd')"> 命令执行扫描
-                                </label>
-                            </div>
-                            <div id='config_cmd' class='col-xs-4' class="col-xs-10" id='config_xss'>
-                                <label class='col-xs-4' for="thread_num_cmd_exec">线程数</label>
-                                <div class="col-xs-8">
-                                    <input class="form-control" id="thread_num_cmd_exec" value="{{ CMDExec.thread_num }}">
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-
-                    <!-- 日志输出 -->
-                    <form class="form-horizontal">
-                        <div class="form-group">
-                            <div class="checkbox col-xs-2">
-                                <label>
-                                    <input type="checkbox" id="checkbox_log" checked="false" onchange="toggle_display('config_log', 'checkbox_log')">日志输出
-                                </label>
-                            </div>
-                            <div id='config_log' class="col-xs-10">
-                                <label class='col-xs-1' for="log_path">日志路径</label>
-                                <div class="col-xs-11">
-                                    <input class="form-control" id='log_path' value="{{ Scanner.output_file_path }}">
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-
-                    <form class="form-horizontal">
-                        <div class="form-group">
-                            <div class="checkbox col-xs-2">
-                                <label>
-                                    <input type="checkbox" id="checkbox_dir_burst" checked="true" onchange="toggle_display('config_dir_burst', 'checkbox_dir_burst')"> 目录猜解
-                                </label>
-                            </div>
-                            <div class='col-xs-10' id="config_dir_burst">
-                                <label class='col-xs-1' for="thread_num_dir_burst">线程<br>数量</label>
-                                <div class="col-xs-2">
-                                    <input class="form-control" id="thread_num_dir_burst" value="{{ Crawler.thread_num_burst }}">
-                                </div>
-                                <label class='col-xs-1' for="dir_burst_dict_path">字典路径</label>
-                                <div class="col-xs-8">
-                                    <input class="form-control" id="dir_burst_dict_path" value="{{ Crawler.dir_dict_paths }}">
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-
-                    <!-- 弱密码表单猜解 -->
-                    <form class="form-horizontal">
-                        <div class="form-group">
-                            <div class="checkbox col-xs-2">
-                                <label>
-                                    <input type="checkbox" id="checkbox_form_auth" checked="true" onchange="toggle_display('config_form_auth', 'checkbox_form_auth')">弱密码表单猜解
-                                </label>
-                            </div>
-                            <div class="col-xs-10" id='config_form_auth'>
-                                <label class='col-xs-1' for="form_auth_user_dict_path">user字典</label>
-                                <div class="col-xs-5">
-                                    <input class="form-control" id="form_auth_user_dict_path" value="{{ FormAuth.user_dict }}">
-                                </div>
-                                <label class='col-xs-1' for="form_auth_pass_dict_path">pass字典</label>
-                                <div class="col-xs-5">
-                                    <input class="form-control" id="form_auth_pass_dict_path" value="{{ FormAuth.pass_dict }}">
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            Copyright © 2015 hanshui@mogujie.com All Rights Reserved.
+            <a class="navbar-brand" href="/">XXX安全巡航 v1.0</a>
         </div>
-        <!-- /#page-wrapper -->
+        <!-- /.navbar-header -->
+
+        <!-- /.navbar-top-links -->
+
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav" id="side-menu">
+
+                    <li>
+                        <a href="/"><i class="fa fa-dashboard fa-fw"></i> 扫描器</a>
+                    </li>
+                    <li>
+                        <a href="/"><i class="fa fa-bar-chart-o fa-fw"></i> 爬虫</a>
+                    </li>
+                    <li>
+                        <a href="/"><i class="fa fa-table fa-fw"></i> 表单猜解</a>
+                    </li>
+                    <li>
+                        <a href="/"><i class="fa fa-edit fa-fw"></i> SQL扫描</a>
+                    </li>
+                    <li>
+                        <a href="/"><i class="fa fa-sitemap fa-fw"></i> XSS扫描</a>
+                    </li>
+                    <li>
+                        <a href="/result/"><i class="fa fa-envelope fa-fw"></i> 结果查看</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.sidebar-collapse -->
+        </div>
+        <!-- /.navbar-static-side -->
+    </nav>
+
+    <div id="page-wrapper" style="overflow: auto">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="page-header">扫描器设置
+                    <button type="button" class="btn btn-outline btn-danger pull-right" onclick="do_start()">START
+                    </button>
+                </h2>
+            </div>
+
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row col-lg-12">
+            <!-- 爬虫 -->
+            <div>
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class='col-xs-1' for="start_url">起始<br>链接</label>
+                        <div class="col-xs-7">
+                            <input class="form-control" id="start_url" value="{{ Crawler.start_url }}"
+                                   onchange="modify_domain()">
+                        </div>
+                        <label class='col-xs-1' for="depth">爬行<br>深度</label>
+                        <div class="col-xs-1">
+                            <input class="form-control" id="depth" value="{{ Crawler.depth_limit }}">
+                        </div>
+                        <label class='col-xs-1' for="thread_num_download">线程<br>数量</label>
+                        <div class="col-xs-1">
+                            <input class="form-control" id="thread_num_download"
+                                   value="{{ Crawler.thread_num_download }}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class='col-xs-1' for="allow_domain">域名<br>限制</label>
+                        <div class="col-xs-3">
+                            <input class="form-control" id="allow_domain" value="{{ Crawler.allow_domain }}">
+                        </div>
+                        <label class='col-xs-1' for="restrict_path">目录<br>限制</label>
+                        <div class="col-xs-2">
+                            <input class="form-control" id="restrict_path" value="{{ Crawler.restrict_path }}">
+                        </div>
+                        <label class='col-xs-1' for="filetype_whitelist">文件<br>类型</label>
+                        <div class="col-xs-4">
+                            <input class="form-control" id="filetype_whitelist"
+                                   value="{{ Crawler.filetype_whitelist }}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class='col-xs-1' for="cookie">Cookie</label>
+                        <div class="col-xs-11">
+                            <input class="form-control" id="cookie" value="{{ Cookie.cookie }}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox col-xs-2">
+                            <label>
+                                <input type="checkbox" id="checkbox_robots" checked="true"> Robots
+                            </label>
+                        </div>
+                        <label class='col-xs-1'>
+                            <input type="checkbox" id="checkbox_proxy" checked="true"
+                                   onchange="toggle_display('config_proxy', 'checkbox_proxy')"> 代理
+                        </label>
+                        <div id='config_proxy' class='col-xs-4'>
+                            <label class='col-xs-4' for="proxy_port">监听端口</label>
+                            <div class="col-xs-8">
+                                <input class="form-control" id="proxy_port" value="{{ Crawler.click_proxy_port }}">
+                            </div>
+                        </div>
+                        <label class='col-xs-1'>
+                            <input type="checkbox" id="checkbox_lfi" checked="true"
+                                   onchange="toggle_display('config_lfi', 'checkbox_lfi')"> LFI
+                        </label>
+                        <div id='config_lfi' class='col-xs-4'>
+                            <label class='col-xs-4' for="thread_num_lfi">线程数量</label>
+                            <div class="col-xs-8">
+                                <input class="form-control" id="thread_num_lfi" value="{{ LFIScanner.thread_num }}">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div>
+                <!-- SQL扫描 -->
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <div class="checkbox col-xs-2">
+                            <label>
+                                <input type="checkbox" id="checkbox_sql" checked="true"
+                                       onchange="toggle_display('config_sql', 'checkbox_sql')">SQL扫描
+                            </label>
+                        </div>
+                        <div class='col-xs-10' id='config_sql'>
+                            <label class='col-xs-2' for="sqlmapapi_addr">SqlmapApi<br>地址</label>
+                            <div class="col-xs-3">
+                                <input class="form-control" id="sqlmapapi_addr"
+                                       value="{{ SQLScanner.sqlmapapi_server_addr }}">
+                            </div>
+                            <label class='col-xs-2' for="sqlmapapi_port">SqlmapApi<br>端口</label>
+                            <div class="col-xs-2">
+                                <input class="form-control" id="sqlmapapi_port"
+                                       value="{{ SQLScanner.sqlmapapi_server_port }}">
+                            </div>
+                            <label class='col-xs-1' for="thread_num_sql">线程</label>
+                            <div class="col-xs-2">
+                                <input class="form-control" id="thread_num_sql" value="{{ SQLScanner.thread_num }}">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- XSS扫描 -->
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <div class="checkbox col-xs-2">
+                            <label>
+                                <input type="checkbox" id="checkbox_xss" checked="true"
+                                       onchange="toggle_display('config_xss', 'checkbox_xss')">XSS扫描
+                            </label>
+                        </div>
+                        <div class="col-xs-10" id='config_xss'>
+                            <div class="checkbox col-xs-2">
+                                <label>
+                                    <input type="checkbox" id="checkbox_dom_xss" checked="true"
+                                           onchange="toggle_display('config_dom_xss', 'checkbox_dom_xss')">DOM型
+                                </label>
+                            </div>
+                            <div id='config_dom_xss' class='col-xs-4'>
+                                <label class='col-xs-4' for="thread_num_dom_xss">线程数</label>
+                                <div class="col-xs-8">
+                                    <input class="form-control" id="thread_num_dom_xss"
+                                           value="{{ XSSScanner.thread_num_dom }}">
+                                </div>
+                            </div>
+                            <div class="checkbox col-xs-2">
+                                <label>
+                                    <input type="checkbox" id="checkbox_reflected_xss" checked="true"
+                                           onchange="toggle_display('config_reflected_xss', 'checkbox_reflected_xss')">反射型
+                                </label>
+                            </div>
+                            <div id='config_reflected_xss' class='col-xs-4'>
+                                <label class='col-xs-4' for="thread_num_reflected_xss">线程数</label>
+                                <div class="col-xs-8">
+                                    <input class="form-control" id="thread_num_reflected_xss"
+                                           value="{{ XSSScanner.thread_num_reflected }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- XSS扫描 -->
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <div class="checkbox col-xs-2">
+                            <label>
+                                <input type="checkbox" id="checkbox_cmd" checked="true"
+                                       onchange="toggle_display('config_cmd', 'checkbox_cmd')"> 命令执行扫描
+                            </label>
+                        </div>
+                        <div id='config_cmd' class='col-xs-4' class="col-xs-10" id='config_xss'>
+                            <label class='col-xs-4' for="thread_num_cmd_exec">线程数</label>
+                            <div class="col-xs-8">
+                                <input class="form-control" id="thread_num_cmd_exec" value="{{ CMDExec.thread_num }}">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- 日志输出 -->
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <div class="checkbox col-xs-2">
+                            <label>
+                                <input type="checkbox" id="checkbox_log" checked="false"
+                                       onchange="toggle_display('config_log', 'checkbox_log')">日志输出
+                            </label>
+                        </div>
+                        <div id='config_log' class="col-xs-10">
+                            <label class='col-xs-1' for="log_path">日志路径</label>
+                            <div class="col-xs-11">
+                                <input class="form-control" id='log_path' value="{{ Scanner.output_file_path }}">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <div class="checkbox col-xs-2">
+                            <label>
+                                <input type="checkbox" id="checkbox_dir_burst" checked="true"
+                                       onchange="toggle_display('config_dir_burst', 'checkbox_dir_burst')"> 目录猜解
+                            </label>
+                        </div>
+                        <div class='col-xs-10' id="config_dir_burst">
+                            <label class='col-xs-1' for="thread_num_dir_burst">线程<br>数量</label>
+                            <div class="col-xs-2">
+                                <input class="form-control" id="thread_num_dir_burst"
+                                       value="{{ Crawler.thread_num_burst }}">
+                            </div>
+                            <label class='col-xs-1' for="dir_burst_dict_path">字典路径</label>
+                            <div class="col-xs-8">
+                                <input class="form-control" id="dir_burst_dict_path"
+                                       value="{{ Crawler.dir_dict_paths }}">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- 弱密码表单猜解 -->
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <div class="checkbox col-xs-2">
+                            <label>
+                                <input type="checkbox" id="checkbox_form_auth" checked="true"
+                                       onchange="toggle_display('config_form_auth', 'checkbox_form_auth')">弱密码表单猜解
+                            </label>
+                        </div>
+                        <div class="col-xs-10" id='config_form_auth'>
+                            <label class='col-xs-1' for="form_auth_user_dict_path">user字典</label>
+                            <div class="col-xs-5">
+                                <input class="form-control" id="form_auth_user_dict_path"
+                                       value="{{ FormAuth.user_dict }}">
+                            </div>
+                            <label class='col-xs-1' for="form_auth_pass_dict_path">pass字典</label>
+                            <div class="col-xs-5">
+                                <input class="form-control" id="form_auth_pass_dict_path"
+                                       value="{{ FormAuth.pass_dict }}">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        Copyright © 2016 XXX Security Team. All Rights Reserved.
     </div>
-    <!-- /#wrapper -->
+    <!-- /#page-wrapper -->
+</div>
+<!-- /#wrapper -->
 
-    <script type="text/javascript">
-        document.getElementById('checkbox_log').checked = false;
-        document.getElementById('checkbox_dir_burst').checked = false;
-        document.getElementById('checkbox_form_auth').checked = false;
-        toggle_display('config_log', 'checkbox_log');
-        toggle_display('config_dir_burst', 'checkbox_dir_burst');
-        toggle_display('config_form_auth', 'checkbox_form_auth');
-    </script>
+<script type="text/javascript">
+    document.getElementById('checkbox_log').checked = false;
+    document.getElementById('checkbox_dir_burst').checked = false;
+    document.getElementById('checkbox_form_auth').checked = false;
+    toggle_display('config_log', 'checkbox_log');
+    toggle_display('config_dir_burst', 'checkbox_dir_burst');
+    toggle_display('config_form_auth', 'checkbox_form_auth');
+</script>
 
-    <!-- jQuery -->
-    <script src="/static/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- jQuery -->
+<script src="/static/bower_components/jquery/dist/jquery.min.js"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="/static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="/static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="/static/bower_components/metisMenu/dist/metisMenu.min.js"></script>
+<!-- Metis Menu Plugin JavaScript -->
+<script src="/static/bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
-    <!-- Morris Charts JavaScript -->
-    <script src="/static/bower_components/raphael/raphael-min.js"></script>
-    <script src="/static/bower_components/morrisjs/morris.min.js"></script>
-    <script src="/static/js/morris-data.js"></script>
+<!-- Morris Charts JavaScript -->
+<script src="/static/bower_components/raphael/raphael-min.js"></script>
+<script src="/static/bower_components/morrisjs/morris.min.js"></script>
+<script src="/static/js/morris-data.js"></script>
 
-    <!-- Custom Theme JavaScript -->
-    <script src="/static/dist/js/sb-admin-2.js"></script>
+<!-- Custom Theme JavaScript -->
+<script src="/static/dist/js/sb-admin-2.js"></script>
 
 </body>
 

@@ -8,11 +8,10 @@ Author:     magerx@paxmac.org
 import threading
 import time
 import subprocess
-import os
-
 from EagleX.scanner.sql.AutoSqli import AutoSqli
 from EagleX.scanner.util.ParallelDispatcher import ParallelDispatcher
 from EagleX.scanner.util.Header import *
+
 
 class SqlScanner(object):
     """
@@ -38,10 +37,10 @@ class SqlScanner(object):
         self.temp_dir_path = temp_dir_path
 
         self.task_queue = []
-        self.seconds_wait = 2      # 检测新加进来的URL
+        self.seconds_wait = 2  # 检测新加进来的URL
         self.sqlmapapi_process = None
         self.exit_flag = False
-        self.sqlmapapi_server = ''.join(['http://', sqlmapapi_addr, ':' , str(sqlmapapi_port)])
+        self.sqlmapapi_server = ''.join(['http://', sqlmapapi_addr, ':', str(sqlmapapi_port)])
 
         # autosqli的对象列表
         self.autosqli_list = [None for i in xrange(thread_num)]
@@ -56,7 +55,7 @@ class SqlScanner(object):
             owner='SqlScanner',
             start_index=0,
             seconds_wait=1
-            )
+        )
 
         # 开启sqlmapapi服务
         self.start_sqlmapapi_server(sqlmapapi_path, sqlmapapi_addr, sqlmapapi_port)
@@ -79,7 +78,7 @@ class SqlScanner(object):
             shell=False,
             stdout=self.f_out,
             stderr=self.f_err
-            )
+        )
 
         self.log(['sqlmapapi server started at %s:%d.' % (addr, port)], DEBUG)
 
@@ -99,7 +98,7 @@ class SqlScanner(object):
             # 添加到任务列表，只取2-POST和1-带参数的GET
             if len(results) > 0:
                 url_count += len(results)
-                self.task_queue.extend([result for result in results if (result[1] >= 1)])# or result[1] == 2)])
+                self.task_queue.extend([result for result in results if (result[1] >= 1)])  # or result[1] == 2)])
                 self.dispather.dispath_scan_task()
 
             # 检测到退出标志置位，退出
@@ -176,7 +175,7 @@ class SqlScanner(object):
                 except:
                     pass
             if (len(payload) > 0):
-                payload = payload[0:-1] # 删除最后的回车
+                payload = payload[0:-1]  # 删除最后的回车
         except:
             pass
         return (dbms, payload)

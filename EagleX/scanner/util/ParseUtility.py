@@ -12,6 +12,7 @@ from EagleX.scanner.util.URLUtility import url_process
 分析HTML页面的函数，拿到链接
 """
 
+
 def form_process(form, url):
     """
     处理表单，合成URL
@@ -19,7 +20,7 @@ def form_process(form, url):
     :url:       当前URL
     :return:    (url, form)非登录表单时返回None
     """
-    url = (url if '?' not in url else url.split('?')[-1])#(url.find('?') == -1) else url[0:url.find('?')]
+    url = (url if '?' not in url else url.split('?')[-1])  # (url.find('?') == -1) else url[0:url.find('?')]
 
     # 分析表单里的提交项
     form = analyze_form(form)
@@ -27,12 +28,13 @@ def form_process(form, url):
     # 合成GET格式的URL
     temp = ""
     for x in form:
-        temp += "{0}={1}&".format(x[0],x[1])#x[0] + '=' + x[1] + '&'
-    if (len(temp) > 0) :
-        temp = temp.rstrip('&')#temp[0:len(temp) - 1]
-        url = "{0}?{1}".format(url,temp)#url + '?' + temp
+        temp += "{0}={1}&".format(x[0], x[1])  # x[0] + '=' + x[1] + '&'
+    if (len(temp) > 0):
+        temp = temp.rstrip('&')  # temp[0:len(temp) - 1]
+        url = "{0}?{1}".format(url, temp)  # url + '?' + temp
 
     return url, form if is_normal_login_form(form) else None
+
 
 def analyze_form(form):
     """
@@ -52,6 +54,7 @@ def analyze_form(form):
                         s_input.attrib.get('type') if s_input.attrib.get('type') != None else ''))
     return f_input
 
+
 def is_normal_login_form(form):
     """
     判断表单是否为一般的登录表单
@@ -70,6 +73,7 @@ def is_normal_login_form(form):
     if passwd_c == 1 and text_c == 0:
         return True
     return False
+
 
 def parse_page(url, srcPage, depth):
     """
@@ -130,7 +134,7 @@ def parse_page(url, srcPage, depth):
     login_forms = []
     forms = page.xpath('//form')
     for form in forms:
-        if (form.attrib.get('action') == None) :
+        if (form.attrib.get('action') == None):
             continue
 
         f_url = url_process(form.attrib.get('action'), url).rstrip(chr(0x0d))

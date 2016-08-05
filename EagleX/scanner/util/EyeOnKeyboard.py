@@ -7,6 +7,7 @@ Author:     magerx@paxmac.org
 
 import sys
 
+
 class EyeOnKeyboard(object):
     """
     监听键盘，用于退出程序
@@ -23,6 +24,6 @@ class EyeOnKeyboard(object):
         """
         监听到指定字符串之后退出
         """
-        _str = 'notexit'#self.exit_str + '0'
+        _str = 'notexit'
         while _str != self.exit_str:
             _str = sys.stdin.readline()

@@ -7,16 +7,17 @@ Statement:  modified from AutoSqli.py by Manning
 """
 
 import requests
-import threading
 import time
 import json
+
 
 class AutoSqli(object):
     """
     封装与sqlmapAPI的通信，新建任务到返回结果，整套
     """
 
-    def __init__(self, server, target, logger, timeout=120, data='', referer='', cookie='', other_options={}, retries=3):
+    def __init__(self, server, target, logger, timeout=120, data='', referer='', cookie='', other_options={},
+                 retries=3):
         """
         :server:        sqlmapAPI的监听地址
         :target:        目标URL
@@ -37,7 +38,7 @@ class AutoSqli(object):
         self.target = target
         self.data = data
         self.referer = referer
-        self.cookie= cookie
+        self.cookie = cookie
         self.other_options = other_options
         self.retries = retries
         self.logger = logger
@@ -133,11 +134,11 @@ class AutoSqli(object):
                 self.retry_count = self.retries + 1
                 return None
 
-            if self.scan_status() == 1:     # 运行中每2秒检测一次状态
+            if self.scan_status() == 1:  # 运行中每2秒检测一次状态
                 time.sleep(self.seconds_before_check_status)
-            elif self.scan_status() == 0:   # 运行结束
+            elif self.scan_status() == 0:  # 运行结束
                 break
-            else:# 出错
+            else:  # 出错
                 succeed = False
                 break
 
@@ -158,7 +159,7 @@ class AutoSqli(object):
                 pass
             if (timeOut):
                 self.error_msg = 'Timeout while scanning'
-            else :
+            else:
                 self.error_msg = 'Illegal task status'
             raise NameError('')
 
@@ -211,7 +212,7 @@ class AutoSqli(object):
         try:
             url = self.server + 'scan/' + self.taskid + '/data'
             self.payload = json.loads(requests.get(url).text)['data']
-            if (len(self.payload) == 0):
+            if len(self.payload) == 0:
                 raise NameError('')
         except:
             self.payload = None
@@ -221,12 +222,12 @@ class AutoSqli(object):
     def option_set(self):
         # 初始默认选项
         headers = {'Content-Type': 'application/json'}
-        option = {  'url': self.target,
-                    'data': self.data,
-                    'referer': self.referer,
-                    'cookie': self.cookie,
-                    'smart': True
-                }
+        option = {'url': self.target,
+                  'data': self.data,
+                  'referer': self.referer,
+                  'cookie': self.cookie,
+                  'smart': True
+                  }
 
         # 额外的选项覆盖默认的选项
         op_list = list(self.other_options)

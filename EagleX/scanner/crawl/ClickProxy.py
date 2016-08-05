@@ -12,6 +12,7 @@ import threading
 
 from EagleX.scanner.crawl.MasterOfProxy import MasterOfProxy
 
+
 class ClickProxy(object):
     """
     开启浏览器代理，人工加入额外的URL
@@ -34,7 +35,7 @@ class ClickProxy(object):
             kb=kb,
             allow_domain_re=allow_domain_re,
             restrict_path_re=restrict_path_re
-            )
+        )
 
         self.logger = logger
         self.exit_flag = False

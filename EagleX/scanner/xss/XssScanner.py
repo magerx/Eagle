@@ -7,18 +7,16 @@ Author:     magerx@paxmac.org
 
 import time
 import threading
-
 from EagleX.scanner.xss.ReflectedXss import ReflectedXss
 from EagleX.scanner.xss.DomXss import DomXss
-
 from EagleX.scanner.util.Header import *
+
 
 class XssScanner(object):
     """
     XSS扫描器，扫描数据库中的结果并保存到数据库中
     反射型和DOM型两个子模块
     """
-
 
     def __init__(self, kb, logger, thread_num_dom, thread_num_reflected, cookie, modules):
         """
@@ -42,9 +40,9 @@ class XssScanner(object):
         self.exit_flag = False
 
         # 启动对应的模块
-        module_list = { 'DOM': self.init_dom,
-                        'REFLECTED': self.init_reflected
-                        }
+        module_list = {'DOM': self.init_dom,
+                       'REFLECTED': self.init_reflected
+                       }
         modules_init_func = []
         for active_module in modules:
             if module_list.get(active_module) is not None:
@@ -61,7 +59,7 @@ class XssScanner(object):
             logger=self.logger,
             thread_num=self.thread_num_reflected,
             cookie=self.cookie
-            )
+        )
 
     def init_dom(self):
         """
@@ -73,7 +71,7 @@ class XssScanner(object):
             logger=self.logger,
             thread_num=self.thread_num_dom,
             cookie=self.cookie
-            )
+        )
 
     def engine_start(self):
         """

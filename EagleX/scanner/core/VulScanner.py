@@ -23,6 +23,7 @@ from EagleX.scanner.info_leakage.INFOLeakage import INFOLeakage
 from EagleX.scanner.util.KnowledgeBase import KnowledgeBase
 from EagleX.scanner.util.Logger import Logger
 
+
 class VulScanner(object):
     """
     主扫描器类，新建全局输出和数据库，启动爬虫以及各种扫描器
@@ -53,16 +54,16 @@ class VulScanner(object):
         self.exit_flag = False
 
         # 定制启动的模块，得到模块列表和所有模块的初始化
-        module_list = { 'Crawler': self.init_crawler,
-                        'XSSScanner': self.init_xss_scanner,
-                        'SQLScanner': self.init_sql_scanner,
-                        'FormAuth': self.init_form_auth,
-                        'LFIScanner': self.init_lfi_scanner,
-                        'CMDExec': self.init_cmd_exec,
-                        'CODEExec': self.init_code_exec,
-                        'URLRedirect': self.init_url_redirect,
-                        'INFOLeakage': self.init_info_leakage,
-                        }
+        module_list = {'Crawler': self.init_crawler,
+                       'XSSScanner': self.init_xss_scanner,
+                       'SQLScanner': self.init_sql_scanner,
+                       'FormAuth': self.init_form_auth,
+                       'LFIScanner': self.init_lfi_scanner,
+                       'CMDExec': self.init_cmd_exec,
+                       'CODEExec': self.init_code_exec,
+                       'URLRedirect': self.init_url_redirect,
+                       'INFOLeakage': self.init_info_leakage,
+                       }
 
         modules_init_func = []
         # 对配置文件中启用的模块进行初始化
@@ -70,7 +71,6 @@ class VulScanner(object):
             if module_list.get(active_module) is not None:
                 modules_init_func.append(module_list[active_module])
         self.modules = [init() for init in modules_init_func]
-
 
     def log(self, msgs):
         self.logger.debug('Scanner', msgs)
@@ -102,23 +102,23 @@ class VulScanner(object):
             self.log(['[ERROR] Failed parsing config for crawler, traceback:', exc])
             return None
 
-        return Crawler( depth_limit=depth_limit,
-                        logger=self.logger,
-                        click_proxy_port=click_proxy_port,
-                        start_url=start_url,
-                        allow_domain=allow_domain,
-                        restrict_path=restrict_path,
-                        filetype_whitelist=filetype_whitelist,
-                        evaljs_path=evaljs_path,
-                        phantomjs_path=phantomjs_path,
-                        thread_num_download=thread_num_download,
-                        kb=self.kb,
-                        dir_dict_paths=dir_dict_paths,
-                        thread_num_burst=thread_num_burst,
-                        cookie=self.cookie,
-                        temp_dir_path=self.temp_dir_path,
-                        modules=modules
-                        )
+        return Crawler(depth_limit=depth_limit,
+                       logger=self.logger,
+                       click_proxy_port=click_proxy_port,
+                       start_url=start_url,
+                       allow_domain=allow_domain,
+                       restrict_path=restrict_path,
+                       filetype_whitelist=filetype_whitelist,
+                       evaljs_path=evaljs_path,
+                       phantomjs_path=phantomjs_path,
+                       thread_num_download=thread_num_download,
+                       kb=self.kb,
+                       dir_dict_paths=dir_dict_paths,
+                       thread_num_burst=thread_num_burst,
+                       cookie=self.cookie,
+                       temp_dir_path=self.temp_dir_path,
+                       modules=modules
+                       )
 
     def init_sql_scanner(self):
         """
@@ -134,15 +134,15 @@ class VulScanner(object):
             self.log(['[ERROR] Failed parsing config for SQLscanner, traceback:', exc])
             return None
 
-        return SqlScanner(  kb=self.kb,
-                            sqlmapapi_path=sqlmapapi_path,
-                            sqlmapapi_port=sqlmapapi_server_port,
-                            logger=self.logger,
-                            cookie=self.cookie,
-                            sqlmapapi_addr=sqlmapapi_server_addr,
-                            thread_num=thread_num,
-                            temp_dir_path=self.temp_dir_path
-                            )
+        return SqlScanner(kb=self.kb,
+                          sqlmapapi_path=sqlmapapi_path,
+                          sqlmapapi_port=sqlmapapi_server_port,
+                          logger=self.logger,
+                          cookie=self.cookie,
+                          sqlmapapi_addr=sqlmapapi_server_addr,
+                          thread_num=thread_num,
+                          temp_dir_path=self.temp_dir_path
+                          )
 
     def init_xss_scanner(self):
         """
@@ -157,13 +157,13 @@ class VulScanner(object):
             self.log(['[ERROR] Failed parsing config for XSSscanner, traceback:', exc])
             return None
 
-        return XssScanner(  kb=self.kb,
-                            logger=self.logger,
-                            thread_num_dom=thread_num_dom,
-                            thread_num_reflected=thread_num_reflected,
-                            cookie=self.cookie,
-                            modules=modules
-                            )
+        return XssScanner(kb=self.kb,
+                          logger=self.logger,
+                          thread_num_dom=thread_num_dom,
+                          thread_num_reflected=thread_num_reflected,
+                          cookie=self.cookie,
+                          modules=modules
+                          )
 
     def init_lfi_scanner(self):
         """
@@ -176,11 +176,11 @@ class VulScanner(object):
             self.log(['[ERROR] Failed parsing config for LFIscanner, traceback:', exc])
             return None
 
-        return LFIScanner(  kb=self.kb,
-                            logger=self.logger,
-                            thread_num=thread_num,
-                            cookie=self.cookie
-                            )
+        return LFIScanner(kb=self.kb,
+                          logger=self.logger,
+                          thread_num=thread_num,
+                          cookie=self.cookie
+                          )
 
     def init_cmd_exec(self):
         """
@@ -193,28 +193,28 @@ class VulScanner(object):
             self.log(['[ERROR] Failed parsing config for CMDExecscanner, traceback:', exc])
             return None
 
-        return CMDExec( kb=self.kb,
+        return CMDExec(kb=self.kb,
+                       logger=self.logger,
+                       thread_num=thread_num,
+                       cookie=self.cookie
+                       )
+
+    def init_code_exec(self):
+        """
+        初始化远程命令执行扫描器
+        :return:    代码执行扫描器模块对象，失败返回None
+        """
+        try:
+            thread_num = int(self.config.get('CODEExec', 'thread_num'))
+        except Exception, exc:
+            self.log(['[ERROR] Failed parsing config for CODEExecscanner, traceback:', exc])
+            return None
+
+        return CODEExec(kb=self.kb,
                         logger=self.logger,
                         thread_num=thread_num,
                         cookie=self.cookie
                         )
-
-    def init_code_exec(self):
-            """
-            初始化远程命令执行扫描器
-            :return:    代码执行扫描器模块对象，失败返回None
-            """
-            try:
-                thread_num = int(self.config.get('CODEExec', 'thread_num'))
-            except Exception, exc:
-                self.log(['[ERROR] Failed parsing config for CODEExecscanner, traceback:', exc])
-                return None
-
-            return CODEExec( kb=self.kb,
-                            logger=self.logger,
-                            thread_num=thread_num,
-                            cookie=self.cookie
-                            )
 
     def init_url_redirect(self):
         """
@@ -227,11 +227,12 @@ class VulScanner(object):
             self.log(['[ERROR] Failed parsing config for URLRedirectscanner, traceback:', exc])
             return None
 
-        return UrlRedirect( kb=self.kb,
-                            logger=self.logger,
-                            thread_num=thread_num,
-                            cookie=self.cookie
-                            )
+        return UrlRedirect(kb=self.kb,
+                           logger=self.logger,
+                           thread_num=thread_num,
+                           cookie=self.cookie
+                           )
+
     def init_info_leakage(self):
         """
         初始化信息泄露扫描器
@@ -243,12 +244,11 @@ class VulScanner(object):
             self.log(['[ERROR] Failed parsing config for INFOLeakagescanner, traceback:', exc])
             return None
 
-        return INFOLeakage( kb=self.kb,
-                            logger=self.logger,
-                            thread_num=thread_num,
-                            cookie=self.cookie
-                            )
-
+        return INFOLeakage(kb=self.kb,
+                           logger=self.logger,
+                           thread_num=thread_num,
+                           cookie=self.cookie
+                           )
 
     def init_form_auth(self):
         """

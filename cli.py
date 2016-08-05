@@ -5,11 +5,11 @@ File:       cli.py
 Author:     magerx@paxmac.org
 """
 
-from EagleX.EagleXSrv import MoguXSrv
+from EagleX.EagleXSrv import EagleXSrv
 
 if __name__ == '__main__':
     try:
-        scan = MoguXSrv()
+        scan = EagleXSrv()
         scan.start(0)
-    except Exception,e:
+    except Exception, e:
         print e

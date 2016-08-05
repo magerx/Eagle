@@ -7,9 +7,8 @@ Author:     magerx@paxmac.org
 
 import urllib2
 import time
-
-from EagleX.scanner.util.ParseUtility import analyze_form
 from EagleX.scanner.util.Header import *
+
 
 class FormAuth(object):
     """
@@ -135,7 +134,7 @@ class FormAuth(object):
                     login_page = self.send_request(url, para)
                     if not self.is_similar(login_page, login_fail_page):
                         self.log(['[WEAKPASS] %s' % url,
-                            '    [PAYLOAD] user-pass %s' % ':'.join([u, p])], not DEBUG)
+                                  '    [PAYLOAD] user-pass %s' % ':'.join([u, p])], not DEBUG)
                         self.kb.save_data(BRUTE, (url, str(para), u + ':' + p, 'FormAuth'))
                         return
         else:
@@ -144,7 +143,7 @@ class FormAuth(object):
                 login_page = self.send_request(url, para)
                 if not self.is_similar(login_page, login_fail_page):
                     self.log(['[WEAKPASS] %s' % url,
-                            '    [PAYLOAD] pass-only %s' % p], not DEBUG)
+                              '    [PAYLOAD] pass-only %s' % p], not DEBUG)
                     self.kb.save_data(BRUTE, (url, str(para), 'NONE:' + p, 'FormAuth'))
                     return
 
@@ -157,7 +156,7 @@ class FormAuth(object):
         :para:      参数表
         :return:    页面源代码
         """
-        headers = { 'User-Agent': 'Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)' }
+        headers = {'User-Agent': 'Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)'}
         try:
             query = '&'.join([(p[0] + '=' + p[1]) for p in para.items()])
             return urllib2.urlopen(urllib2.Request(url, query, headers=headers)).read()

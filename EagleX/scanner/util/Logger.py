@@ -7,9 +7,8 @@ Author:     magerx@paxmac.org
 
 import threading
 import time
-import sys
-
 from EagleX.scanner.util.Header import *
+
 
 class Logger(object):
     """
@@ -65,6 +64,5 @@ class Logger(object):
                 self.redirect.write("\033[0;32;40m%s %s \033[0m \n" % (header, msg))
             else:
                 self.redirect.write("%s %s\n" % (header, msg))
-
 
         self.mutex.release()

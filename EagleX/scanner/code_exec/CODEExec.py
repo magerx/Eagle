@@ -6,13 +6,11 @@ Author:     magerx@paxmac.org
 """
 
 import time
-import threading
-import re
-
 from EagleX.scanner.util.Header import *
 from EagleX.scanner.util.URLUtility import extract_path_query
 from EagleX.scanner.util.ParallelDispatcher import ParallelDispatcher
 from EagleX.scanner.util.PayloadSender import send_payload
+
 
 class CODEExec(object):
     """
@@ -46,20 +44,20 @@ class CODEExec(object):
             owner=self.owner,
             start_index=0,
             seconds_wait=2
-            )
+        )
 
         PRINT_REPEATS = 5
 
         PRINT_STRINGS = (
-        # PHP http://php.net/eval
-        "echo str_repeat('%%s',%s);" % PRINT_REPEATS,
-        # Perl http://perldoc.perl.org/functions/eval.html
-        "print '%%s'x%s" % PRINT_REPEATS,
-        # Python
-        # http://docs.python.org/reference/simple_stmts.html#the-exec-statement
-        "print '%%s'*%s" % PRINT_REPEATS,
-        # ASP
-        "Response.Write(new String(\"%%s\",%s))" % PRINT_REPEATS,
+            # PHP http://php.net/eval
+            "echo str_repeat('%%s',%s);" % PRINT_REPEATS,
+            # Perl http://perldoc.perl.org/functions/eval.html
+            "print '%%s'x%s" % PRINT_REPEATS,
+            # Python
+            # http://docs.python.org/reference/simple_stmts.html#the-exec-statement
+            "print '%%s'*%s" % PRINT_REPEATS,
+            # ASP
+            "Response.Write(new String(\"%%s\",%s))" % PRINT_REPEATS,
         )
 
         self.payloads = PRINT_STRINGS
@@ -114,7 +112,8 @@ class CODEExec(object):
                 continue
 
             # 打印，并保存payload
-            self.log(['[VULNERABLE] ' + task[0], '    [LOCATION] ' + query[index][0], '    [PAYLOAD] ' + payload], not DEBUG)
+            self.log(['[VULNERABLE] ' + task[0], '    [LOCATION] ' + query[index][0], '    [PAYLOAD] ' + payload],
+                     not DEBUG)
             self.kb.save_data(CODE, (task[0], query[index][0], payload, 'CODE'))
             break
         else:
@@ -125,7 +124,7 @@ class CODEExec(object):
         检查结果中是否有payload，找到对应的返回结果的正则，匹配一下看看
         """
 
-        return '%s'*5 in src
+        return '%s' * 5 in src
 
     def exit(self):
         self.dispather.exit()

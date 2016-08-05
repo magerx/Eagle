@@ -11,11 +11,11 @@ import urllib2
 import time
 import pycurl
 from EagleX.scanner.util.Gziphandle import ContentEncodingProcessor
-from EagleX.scanner.util.DnsCache import new_getaddrinfo
 
 """
 发送Payload的函数，目前只有XSS用，不过可以定制
 """
+
 
 def send_payload(url, is_post, querys, payload, check_func, cookie):
     """
@@ -34,6 +34,7 @@ def send_payload(url, is_post, querys, payload, check_func, cookie):
         if check_func(payload, src, _):
             return i
     return -1
+
 
 def send_request_with_payload(url, is_post, querys, index, payload, cookie):
     """
@@ -67,23 +68,24 @@ def send_common_request(url, is_post, cookie, para=''):
     :is_post:   是否是POST
     :cookie:    cookie
     """
-    headers = { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:42.0) Gecko/20100101 Firefox/42.0',
-            'Cookie': cookie
-            }
-    #dns cache
+    headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:42.0) Gecko/20100101 Firefox/42.0',
+               'Cookie': cookie
+               }
+    # dns cache
     # socket.getaddrinfo = new_getaddrinfo
 
     try:
         encoding_support = ContentEncodingProcessor()
         opener = urllib2.build_opener(encoding_support, urllib2.HTTPHandler)
         urllib2.install_opener(opener)
-        if is_post == 2:            # post
+        if is_post == 2:  # post
             # url, query = url.split('?', 1)
             return urllib2.urlopen(urllib2.Request(url, para, headers=headers)).read()
         else:
-            return urllib2.urlopen(urllib2.Request('?'.join([url,para]), headers=headers)).read()
+            return urllib2.urlopen(urllib2.Request('?'.join([url, para]), headers=headers)).read()
     except:
         return ''
+
 
 def curl(source_url, is_post, cookie):
     """
@@ -98,8 +100,8 @@ def curl(source_url, is_post, cookie):
     c.setopt(c.COOKIE, cookie)
     c.setopt(c.USERAGENT, 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:42.0) Gecko/20100101 Firefox/42.0')
     try:
-        if is_post == 2:            # post
-            url, query = url.split('?', 1)
+        if is_post == 2:  # post
+            url, query = source_url.split('?', 1)
             c.setopt(c.URL, url)
             c.setopt(c.POSTFIELDS, query)
         else:

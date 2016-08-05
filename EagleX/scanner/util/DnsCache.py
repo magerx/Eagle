@@ -9,6 +9,7 @@ import socket
 prv_getaddrinfo = socket.getaddrinfo
 dns_cache = {}  # or a weakref.WeakValueDictionary()
 
+
 def new_getaddrinfo(*args):
     try:
         return dns_cache[args]

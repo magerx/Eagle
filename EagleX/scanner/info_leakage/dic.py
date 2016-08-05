@@ -26,21 +26,21 @@ MONGODB = ":27017/test/"
 HADOOP = "/dfshealth.html"
 SOLR = ":8983/solr/#/"
 
-#dict key是payload,value是特征
+# dict key是payload,value是特征
 pathlist = {
-            BASHRC: 'Source global definitions',
-            BASH_HISTORY: 'cd..\n',
-            BUILD: '#! /bin/sh',
-            TEST_CGI: 'SERVER_SOFTWARE',
-            CROSSDOMAIN: 'allow-access-from domain="*"',
-            DS_Store: 'Bud1',
-            GIT: 'repositoryformatversion',
-            HATCCESS: 'RewriteEngine',
-            PCHECK: 'Welcome Pcheck!',
-            PHPMYADMIN: 'phpMyAdmin - ChangeLog',
-            SVN: 'dir\n',
-            ELASTICSEARCH: '_river',
-            MONGODB: 'You are trying to access MongoDB',
-            HADOOP: 'Datanode Information',
-            SOLR: 'Solr Admin',
-        }
+    BASHRC: 'Source global definitions',
+    BASH_HISTORY: 'cd..\n',
+    BUILD: '#! /bin/sh',
+    TEST_CGI: 'SERVER_SOFTWARE',
+    CROSSDOMAIN: 'allow-access-from domain="*"',
+    DS_Store: 'Bud1',
+    GIT: 'repositoryformatversion',
+    HATCCESS: 'RewriteEngine',
+    PCHECK: 'Welcome Pcheck!',
+    PHPMYADMIN: 'phpMyAdmin - ChangeLog',
+    SVN: 'dir\n',
+    ELASTICSEARCH: '_river',
+    MONGODB: 'You are trying to access MongoDB',
+    HADOOP: 'Datanode Information',
+    SOLR: 'Solr Admin',
+}

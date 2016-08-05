@@ -5,13 +5,10 @@ File:       MasterOfProxy.py
 Author:     magerx@paxmac.org
 """
 
-#http://docs.mitmproxy.org/en/stable/scripting/libmproxy.html
-
-import os
 from mitmproxy import controller
-
 from EagleX.scanner.util.URLUtility import extract_netloc_path
 from EagleX.scanner.util.Header import *
+
 
 class MasterOfProxy(controller.Master):
     """
@@ -100,7 +97,8 @@ class MasterOfProxy(controller.Master):
 
         # 得到拼接的URL
         is_post = 1 if len(r.content) > 0 else 0
-        url = "{0}://{1}{2}{3}".format(r.scheme,r.host,('' if r.port == 80 else (':' + str(r.port))),flow.request.path)#r.scheme + '://' + r.host + ('' if r.port == 80 else (':' + str(r.port))) + flow.request.path
+        url = "{0}://{1}{2}{3}".format(r.scheme, r.host, ('' if r.port == 80 else (':' + str(r.port))),
+                                       flow.request.path)
         if is_post == 1:
             url += ('&' if '?' in url else '?') + r.content
 

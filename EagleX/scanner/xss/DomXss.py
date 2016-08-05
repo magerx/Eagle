@@ -16,6 +16,7 @@ from EagleX.scanner.util.ParallelDispatcher import ParallelDispatcher
 from EagleX.scanner.util.PayloadSender import send_common_request
 from EagleX.scanner.util.URLUtility import url_process
 
+
 class DomXss(object):
     """
     检测DOM XSS，检查页面中可控字段，无需发送payload
@@ -49,7 +50,7 @@ class DomXss(object):
             owner=self.owner,
             start_index=0,
             seconds_wait=2
-            )
+        )
 
     def engine_start(self):
         """

@@ -8,10 +8,10 @@ Author:     magerx@paxmac.org
 import requests
 import threading
 import time
-
 from EagleX.scanner.util.URLUtility import extract_path_domain
 from EagleX.scanner.util.ParallelDispatcher import ParallelDispatcher
 from EagleX.scanner.util.Header import *
+
 
 class DirBurster(object):
     """
@@ -55,7 +55,7 @@ class DirBurster(object):
             owner='DirBurster',
             start_index=0,
             seconds_wait=2
-            )
+        )
 
     def engine_start(self):
         """

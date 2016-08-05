@@ -15,6 +15,7 @@ from EagleX.scanner.util.URLUtility import extract_path_query
 from EagleX.scanner.util.ParallelDispatcher import ParallelDispatcher
 from EagleX.scanner.util.PayloadSender import send_payload
 
+
 class ReflectedXss(object):
     """
     反射型或者存储型XSS的检测，payload直接echo在返回的页面中
@@ -50,7 +51,7 @@ class ReflectedXss(object):
             owner=self.owner,
             start_index=0,
             seconds_wait=2
-            )
+        )
 
     def engine_start(self):
         """

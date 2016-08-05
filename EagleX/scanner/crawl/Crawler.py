@@ -9,24 +9,24 @@ Modify:     2016-03-29
 import threading
 import time
 import re
-
 from EagleX.scanner.crawl.ClickProxy import ClickProxy
 from EagleX.scanner.crawl.RobotsKiller import Robots
 from EagleX.scanner.crawl.SrcDownloader import SrcDownloader
 from EagleX.scanner.crawl.JsonConvertor import JsonConvertor
-
 from EagleX.scanner.bruteforce.DirBurster import DirBurster
-
 from EagleX.scanner.util.Header import *
 from EagleX.scanner.util.ParseUtility import parse_page
 from EagleX.scanner.util.URLUtility import extract_netloc_path
+
 
 class Crawler(object):
     """
     爬虫类，目录猜解，Robots解析等
     """
 
-    def __init__(self, depth_limit, logger, click_proxy_port, start_url, allow_domain, restrict_path, filetype_whitelist, evaljs_path, phantomjs_path, thread_num_download, kb, dir_dict_paths, thread_num_burst, cookie, temp_dir_path, modules):
+    def __init__(self, depth_limit, logger, click_proxy_port, start_url, allow_domain, restrict_path,
+                 filetype_whitelist, evaljs_path, phantomjs_path, thread_num_download, kb, dir_dict_paths,
+                 thread_num_burst, cookie, temp_dir_path, modules):
         """
         :depth_limit:           爬行深度
         :logger:                输出
@@ -58,21 +58,23 @@ class Crawler(object):
         f.write("{0};{1}".format(self.allow_domain, cookie))
         f.close()
 
-        #限定爬行域名和目录，目前通过正则
+        # 限定爬行域名和目录，目前通过正则
         # self.regulex_domain_path()
 
         # 模块们的初始化函数和对应的参数
-        module_list = { 'DOWNLOAD': self.init_downloader,
-                        'DIRBURST': self.init_dir_burst,
-                        'ROBOTS': self.init_robots,
-                        'PROXY': self.init_click_proxy
-                        }
+        module_list = {'DOWNLOAD': self.init_downloader,
+                       'DIRBURST': self.init_dir_burst,
+                       'ROBOTS': self.init_robots,
+                       'PROXY': self.init_click_proxy
+                       }
 
-        args_list = {   'DOWNLOAD': (kb, phantomjs_path, evaljs_path, logger, thread_num_download, filetype_whitelist, depth_limit, temp_dir_path),
-                        'DIRBURST': (kb, thread_num_burst, dir_dict_paths, logger),
-                        'ROBOTS': (kb, logger),
-                        'PROXY': (click_proxy_port, kb, logger, self.allow_domain, self.restrict_path)
-                        }
+        args_list = {'DOWNLOAD': (
+            kb, phantomjs_path, evaljs_path, logger, thread_num_download, filetype_whitelist, depth_limit,
+            temp_dir_path),
+            'DIRBURST': (kb, thread_num_burst, dir_dict_paths, logger),
+            'ROBOTS': (kb, logger),
+            'PROXY': (click_proxy_port, kb, logger, self.allow_domain, self.restrict_path)
+        }
 
         # 默认启动下载器，添加到启动列表
         if 'DOWNLOAD' not in modules:
@@ -89,7 +91,7 @@ class Crawler(object):
         # JSON转换模块，用于TreeView展示，不涉及到多少数据量，就在主线程中执行
         self.json_convertor = JsonConvertor(
             kb=kb
-            )
+        )
 
         self.exit_flag = False
         self.seconds_wait = 1
@@ -99,47 +101,48 @@ class Crawler(object):
         初始化一个click_proxy，参数即所需的东西
         :return:    ClickProxy对象
         """
-        return ClickProxy(  port=port,
-                            kb=kb,
-                            logger=logger,
-                            allow_domain_re=allow_domain,
-                            restrict_path_re=restrict_path
-                            )
+        return ClickProxy(port=port,
+                          kb=kb,
+                          logger=logger,
+                          allow_domain_re=allow_domain,
+                          restrict_path_re=restrict_path
+                          )
 
-    def init_downloader(self, (kb, phantomjs_path, evaljs_path, logger, thread_num, filetype_whitelist, depth_limit, temp_dir_path)):
+    def init_downloader(self,
+                        (kb, phantomjs_path, evaljs_path, logger, thread_num, filetype_whitelist, depth_limit, temp_dir_path)):
         """
         初始化一个downloader，参数即所需的东西
         :return:    SrcDownloader对象
         """
-        return SrcDownloader(   kb=kb,
-                                phantomjs_path=phantomjs_path,
-                                evaljs_path=evaljs_path,
-                                logger=logger,
-                                thread_num=thread_num,
-                                filetype_whitelist=filetype_whitelist,
-                                depth_limit=depth_limit,
-                                temp_dir_path=temp_dir_path
-                                )
+        return SrcDownloader(kb=kb,
+                             phantomjs_path=phantomjs_path,
+                             evaljs_path=evaljs_path,
+                             logger=logger,
+                             thread_num=thread_num,
+                             filetype_whitelist=filetype_whitelist,
+                             depth_limit=depth_limit,
+                             temp_dir_path=temp_dir_path
+                             )
 
     def init_robots(self, (kb, logger)):
         """
         初始化一个robots，参数即所需的东西
         :return:    Robots对象
         """
-        return Robots(  kb=kb,
-                        logger=logger
-                        )
+        return Robots(kb=kb,
+                      logger=logger
+                      )
 
     def init_dir_burst(self, (kb, thread_num, dic_paths, logger)):
         """
         初始化一个目录猜解器，参数即所需的东西
         :return:    DirBurster对象
         """
-        return DirBurster(  kb=kb,
-                            thread_num=thread_num,
-                            dic_paths=dic_paths,
-                            logger=logger
-                            )
+        return DirBurster(kb=kb,
+                          thread_num=thread_num,
+                          dic_paths=dic_paths,
+                          logger=logger
+                          )
 
     def engine_start(self):
         """
@@ -169,7 +172,7 @@ class Crawler(object):
             if results != '':
                 code, urls, login_forms = parse_page(results[0], results[1], results[2])
                 self.kb.save_data(URL,
-                    [url for url in urls if self.is_valid_domain_path(url[0])])
+                                  [url for url in urls if self.is_valid_domain_path(url[0])])
                 self.kb.save_data(STATUS, (results[0], code))
                 self.kb.save_data(LOGIN_FORM, login_forms)
 

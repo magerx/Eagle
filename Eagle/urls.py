@@ -24,6 +24,6 @@ urlpatterns = [
     url(r'^engine_start_main/$', 'xunhang.views.engine_start_main', name='engine_start_main'),
     url(r'^engine_stop_main/$', 'xunhang.views.engine_stop_main', name='engine_stop_main'),
     url(r'^result/$', 'xunhang.views.show_result', name='show_result'),
-    url(r'^favicon\.ico$', RedirectView.as_view(url='/static/favicon.ico',permanent=True)),
+    url(r'^favicon\.ico$', RedirectView.as_view(url='/static/favicon.ico', permanent=True)),
     url(r'^admin/', include(admin.site.urls)),
 ]

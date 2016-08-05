@@ -9,12 +9,12 @@ import sqlite3
 import threading
 import time
 import sys
-
 from EagleX.scanner.util.Header import *
 from EagleX.scanner.util.URLUtility import get_domain, get_pattern
 
 reload(sys)
 sys.setdefaultencoding('utf8')
+
 
 class KnowledgeBase(object):
     """
@@ -43,8 +43,8 @@ class KnowledgeBase(object):
                 DELETE: 'DELETE FROM URL_',
                 SELECT: 'SELECT url, is_post, status_code, depth FROM URL_ WHERE id>%d',
                 CREATE: 'CREATE TABLE URL_ (id integer primary key, url text, is_post integer, status_code integer, depth integer)',
-                DROP:   'DROP TABLE URL_',
-                INIT:   '',
+                DROP: 'DROP TABLE URL_',
+                INIT: '',
                 UPDATE: 'UPDATE URL_ SET status_code=%d where url=\"%s\"'
             },
             SQL: {
@@ -52,8 +52,8 @@ class KnowledgeBase(object):
                 DELETE: 'DELETE FROM SQL_',
                 SELECT: '',
                 CREATE: 'CREATE TABLE SQL_ (id integer primary key, url text, dbms text, payload text)',
-                DROP:   'DROP TABLE SQL_',
-                INIT:   '',
+                DROP: 'DROP TABLE SQL_',
+                INIT: '',
                 UPDATE: ''
             },
             JSON: {
@@ -61,8 +61,8 @@ class KnowledgeBase(object):
                 DELETE: 'UPDATE JSON_ SET json="" WHERE id=0',
                 SELECT: '',
                 CREATE: 'CREATE TABLE JSON_ (id integer primary key, json longtext)',
-                DROP:   'DROP TABLE JSON_',
-                INIT:   'INSERT INTO JSON_ VALUES (0, "[]")',
+                DROP: 'DROP TABLE JSON_',
+                INIT: 'INSERT INTO JSON_ VALUES (0, "[]")',
                 UPDATE: ''
             },
             XSS: {
@@ -70,8 +70,8 @@ class KnowledgeBase(object):
                 DELETE: 'DELETE FROM XSS_',
                 SELECT: '',
                 CREATE: 'CREATE TABLE XSS_ (id integer primary key, url text, location text, payload text, type text)',
-                DROP:   'DROP TABLE XSS_',
-                INIT:   '',
+                DROP: 'DROP TABLE XSS_',
+                INIT: '',
                 UPDATE: ''
             },
             LFI: {
@@ -79,8 +79,8 @@ class KnowledgeBase(object):
                 DELETE: 'DELETE FROM LFI_',
                 SELECT: '',
                 CREATE: 'CREATE TABLE LFI_ (id integer primary key, url text, location text, payload text, type text)',
-                DROP:   'DROP TABLE LFI_',
-                INIT:   '',
+                DROP: 'DROP TABLE LFI_',
+                INIT: '',
                 UPDATE: ''
             },
             CMD: {
@@ -88,8 +88,8 @@ class KnowledgeBase(object):
                 DELETE: 'DELETE FROM CMD_',
                 SELECT: '',
                 CREATE: 'CREATE TABLE CMD_ (id integer primary key, url text, location text, payload text, type text)',
-                DROP:   'DROP TABLE CMD_',
-                INIT:   '',
+                DROP: 'DROP TABLE CMD_',
+                INIT: '',
                 UPDATE: ''
             },
             CODE: {
@@ -97,8 +97,8 @@ class KnowledgeBase(object):
                 DELETE: 'DELETE FROM CODE_',
                 SELECT: '',
                 CREATE: 'CREATE TABLE CODE_ (id integer primary key, url text, location text, payload text, type text)',
-                DROP:   'DROP TABLE CODE_',
-                INIT:   '',
+                DROP: 'DROP TABLE CODE_',
+                INIT: '',
                 UPDATE: ''
             },
             URL_REDIRECT: {
@@ -106,8 +106,8 @@ class KnowledgeBase(object):
                 DELETE: 'DELETE FROM URL_REDIRECT_',
                 SELECT: '',
                 CREATE: 'CREATE TABLE URL_REDIRECT_ (id integer primary key, url text, location text, payload text, type text)',
-                DROP:   'DROP TABLE URL_REDIRECT_',
-                INIT:   '',
+                DROP: 'DROP TABLE URL_REDIRECT_',
+                INIT: '',
                 UPDATE: ''
             },
             INFO: {
@@ -115,8 +115,8 @@ class KnowledgeBase(object):
                 DELETE: 'DELETE FROM URL_REDIRECT_',
                 SELECT: '',
                 CREATE: 'CREATE TABLE INFO_Leakage_ (id integer primary key, url text, location text, payload text, type text)',
-                DROP:   'DROP TABLE INFO_Leakage_',
-                INIT:   '',
+                DROP: 'DROP TABLE INFO_Leakage_',
+                INIT: '',
                 UPDATE: ''
             },
             BRUTE: {
@@ -124,8 +124,8 @@ class KnowledgeBase(object):
                 DELETE: 'DELETE FROM BRUTE_',
                 SELECT: '',
                 CREATE: 'CREATE TABLE BRUTE_ (id integer primary key, url text, para text, payload text, type text)',
-                DROP:   'DROP TABLE BRUTE_',
-                INIT:   '',
+                DROP: 'DROP TABLE BRUTE_',
+                INIT: '',
                 UPDATE: ''
             },
             LOG: {
@@ -133,8 +133,8 @@ class KnowledgeBase(object):
                 DELETE: 'DELETE FROM LOG_',
                 SELECT: '',
                 CREATE: 'CREATE TABLE LOG_ (id integer primary key, time text, type text, msg text)',
-                DROP:   'DROP TABLE LOG_',
-                INIT:   '',
+                DROP: 'DROP TABLE LOG_',
+                INIT: '',
                 UPDATE: ''
             },
         }
@@ -284,7 +284,8 @@ class KnowledgeBase(object):
         # 保存SQL注入的payload信息，参数格式(url, dbms, payload)
         elif cmd == SQL:
             self.count[SQL] += 1
-            sql = self.sqls[SQL][INSERT] % (self.count[SQL], args[0].replace('"', '""'), args[1].replace('"', '""'), args[2].replace('"', '""'))
+            sql = self.sqls[SQL][INSERT] % (
+                self.count[SQL], args[0].replace('"', '""'), args[1].replace('"', '""'), args[2].replace('"', '""'))
             cur.execute(sql)
 
         # 保存JSON到数据库中，参数格式str
@@ -302,7 +303,9 @@ class KnowledgeBase(object):
         # 还有LFI的结果，格式与xss保持一致
         elif cmd in [XSS, BRUTE, CMD, CODE, LFI, URL_REDIRECT, INFO]:
             self.count[cmd] += 1
-            sql = self.sqls[cmd][INSERT] % (self.count[cmd], args[0].replace('"', '""'), args[1].replace('"', '""'), args[2].replace('"', '""'), args[3].replace('"', '""'))
+            sql = self.sqls[cmd][INSERT] % (
+                self.count[cmd], args[0].replace('"', '""'), args[1].replace('"', '""'), args[2].replace('"', '""'),
+                args[3].replace('"', '""'))
             cur.execute(sql)
 
         # 保存找到的登录表单
@@ -312,7 +315,8 @@ class KnowledgeBase(object):
         # 保存日志
         elif cmd == LOG:
             self.count[cmd] += 1
-            sql = self.sqls[cmd][INSERT] % (self.count[cmd], args[0].replace('"', '""'), args[1].replace('"', '""'), args[2].replace('"', '""'))
+            sql = self.sqls[cmd][INSERT] % (
+                self.count[cmd], args[0].replace('"', '""'), args[1].replace('"', '""'), args[2].replace('"', '""'))
             cur.execute(sql)
 
         conn.commit()

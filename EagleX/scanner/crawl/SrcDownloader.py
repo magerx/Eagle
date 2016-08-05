@@ -7,7 +7,6 @@ Author:     magerx@paxmac.org
 
 import subprocess
 import time
-import threading
 import re
 import os
 from urlparse import urlparse
@@ -15,12 +14,14 @@ from urlparse import urlparse
 from EagleX.scanner.util.ParallelDispatcher import ParallelDispatcher
 from EagleX.scanner.util.Header import *
 
+
 class SrcDownloader(object):
     """
     下载器模块，下载源代码，并且保存到kb
     """
 
-    def __init__(self, kb, phantomjs_path, evaljs_path, logger, thread_num, filetype_whitelist, depth_limit, temp_dir_path):
+    def __init__(self, kb, phantomjs_path, evaljs_path, logger, thread_num, filetype_whitelist, depth_limit,
+                 temp_dir_path):
         """
         :kb:                Universal KnowledgeBase
         :phantomjs_path:    phantomjs路径
@@ -42,7 +43,7 @@ class SrcDownloader(object):
 
         self.exit_flag = False
         self.task_queue = []
-        self.seconds_wait = 1      # 检测新加进来的URL
+        self.seconds_wait = 1  # 检测新加进来的URL
 
         # 线程分发器
         self.dispather = ParallelDispatcher(
@@ -53,7 +54,7 @@ class SrcDownloader(object):
             owner='Downloader',
             start_index=0,
             seconds_wait=2
-            )
+        )
 
     def engine_start(self):
         """
@@ -71,7 +72,7 @@ class SrcDownloader(object):
             # 添加到任务队列，由分发器分发
             if len(results) > 0:
                 url_count += len(results)
-                self.task_queue.extend(results)#[result for result in results])
+                self.task_queue.extend(results)
                 self.dispather.dispath_scan_task()
 
             # 检测到退出标志置位，退出
@@ -91,13 +92,14 @@ class SrcDownloader(object):
         """
 
         # 深度超过限制，文件类型不合法，或者是logout（这个也许有别的方法？）
-        if  self.depth_limit < task[3] or \
-            not self.is_valid_filetype(task[0]) or \
-            re.compile(r'.*logout.*', re.IGNORECASE | re.DOTALL).match(task[0]):
+        if self.depth_limit < task[3] or \
+                not self.is_valid_filetype(task[0]) or \
+                re.compile(r'.*logout.*', re.IGNORECASE | re.DOTALL).match(task[0]):
             return
         self.log(['%d %s' % (task[3], task[0])])
         # shell命令，phantomjs，在参数前面增加P/G代表POST或者GET
-        batcmd = self.executable + ('"P' if task[1] == 2 else '"G') + task[0].replace('"', '""') + '" "' + os.getcwd() + '/EagleX/extra/temp"'
+        batcmd = self.executable + ('"P' if task[1] == 2 else '"G') + task[0].replace('"',
+                                                                                      '""') + '" "' + os.getcwd() + '/EagleX/extra/temp"'
 
         try:
 
@@ -107,15 +109,15 @@ class SrcDownloader(object):
             self.exc = exc
             self.log(['[ERROR] phantomjs crashed, stderr output saved to CRASH.txt'])
 
-            format_time = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
+            format_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
             f = open(self.temp_dir_path + 'CRASH.txt', 'a')
 
-            msg =   '\n=================== ' + format_time + ' ===================\n' + \
-                    self.exc.output + \
-                    '\n*************************************\n' + \
-                    task[0] + \
-                    '\n*************************************\n' \
-                    '===========================================================\n'
+            msg = '\n=================== ' + format_time + ' ===================\n' + \
+                  self.exc.output + \
+                  '\n*************************************\n' + \
+                  task[0] + \
+                  '\n*************************************\n' \
+                  '===========================================================\n'
             f.write(msg)
             f.close()
             return
@@ -131,7 +133,7 @@ class SrcDownloader(object):
         """
         extension = os.path.splitext(urlparse(url).path)[1].lstrip('.')
         # print extension
-        if not extension :
+        if not extension:
             extension = 'html'  # 如果没有匹配到后缀就用这个了
         return self.filetype_whitelist.get(extension) is not None
 

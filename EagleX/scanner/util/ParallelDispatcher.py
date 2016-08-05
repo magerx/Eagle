@@ -8,6 +8,7 @@ Author:     magerx@paxmac.org
 import threading
 import time
 
+
 class ParallelDispatcher(object):
     """
     分发并管理线程执行，数据打包成元组
@@ -65,7 +66,7 @@ class ParallelDispatcher(object):
         self.thread_list[thread_no] = threading.Thread(
             target=self.execute_func,
             args=(self.data_source[task_no], thread_no)
-            )
+        )
         self.thread_list[thread_no].start()
 
     def suicide(self):

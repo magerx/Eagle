@@ -5,10 +5,10 @@ File:       JsonConvertor.py
 Author:     magerx@paxmac.org
 """
 
-from urlparse import urlparse
 import json
-
+from urlparse import urlparse
 from EagleX.scanner.util.Header import *
+
 
 class JsonConvertor(object):
     """
@@ -43,7 +43,7 @@ class JsonConvertor(object):
             self.data[i]['children'] = self.parse_path(self.data[i]['children'], f_path, f_query, code)
             return
 
-        self.data.append({'name':f_domain, 'children':[], 'open':'true'})
+        self.data.append({'name': f_domain, 'children': [], 'open': 'true'})
         self.data[-1]['children'] = self.parse_path(self.data[-1]['children'], f_path, f_query, code)
 
     def parse_path(self, node, path, query, code):
@@ -59,20 +59,20 @@ class JsonConvertor(object):
 
         # 没有次级目录
         if (path.find('/') == -1):
-            if (len(path) == 0):            # 根目录
-                node.append({'name':'/' + query + ((' - ' + str(code)) if code != 0 else '')})
+            if (len(path) == 0):  # 根目录
+                node.append({'name': '/' + query + ((' - ' + str(code)) if code != 0 else '')})
 
-            elif (path.find('.') == -1):    # 目录
+            elif (path.find('.') == -1):  # 目录
                 i = self.find_node_with_name(node, path)
-                if (i != -1) :
+                if (i != -1):
                     # node[i]['children'].append({'name':'/' + query + ((' - ' + str(code)) if code != 0 else '')})
                     pass
-                else :
-                    node.append({'name':path, 'children':[]})
+                else:
+                    node.append({'name': path, 'children': []})
                     # node[-1]['children'].append({'name':'/' + query + ((' - ' + str(code)) if code != 0 else '')})
 
-            else:                           # 文件
-                node.append({'name':path + query + ((' - ' + str(code)) if code != 0 else '')})
+            else:  # 文件
+                node.append({'name': path + query + ((' - ' + str(code)) if code != 0 else '')})
             return node
 
         # 分离出当前目录
@@ -86,7 +86,7 @@ class JsonConvertor(object):
         if (i != -1):
             node[i]['children'] = self.parse_path(node[i]['children'], path, query, code)
             return node
-        node.append({'name':directory, 'children':[]})
+        node.append({'name': directory, 'children': []})
         node[-1]['children'] = self.parse_path(node[-1]['children'], path, query, code)
 
         return node
