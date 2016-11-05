@@ -48,7 +48,7 @@ def send_request_with_payload(url, is_post, querys, index, payload, cookie):
     :return:        返回的源代码
     """
     # URL编码只对除了payload之外的参数起作用，payload不做URL编码
-    # 用payload替换需要测试的参数值
+    # 用payload替换需要测试的参数值,其余参数值用原值
     query = {}
     for i in xrange(len(querys)):
         if i != index:

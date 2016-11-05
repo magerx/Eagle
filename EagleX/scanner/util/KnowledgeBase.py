@@ -208,7 +208,7 @@ class KnowledgeBase(object):
 
         # 读取URL，参数为index，即读取到了第几个URL
         elif cmd == URL:
-            # 执行sql，返回读取到的结果
+            # 执行sql，返回读取到的结果，args表示当前cursor
             sql = self.sqls[CRAWL][SELECT] % args
             conn = sqlite3.connect(self.db_path)
             cur = conn.cursor()
@@ -238,7 +238,7 @@ class KnowledgeBase(object):
         # 读取爬取到的登录表单，(none, none)为没有数据
         elif cmd == LOGIN_FORM:
             if len(self.login_forms) == 0:
-                return (None, None)
+                return None, None
 
             # 返回第一个form，然后删除之
             form = self.login_forms[0]
@@ -328,6 +328,7 @@ class KnowledgeBase(object):
         # 其他保存都是原样返回，并卵
         return args
 
+    # TODO: 考虑重新，用布隆过滤器+hash的形式
     def _encode_filter(self, items):
         """
         对URL进行去重，并且进行URL编码
@@ -339,8 +340,8 @@ class KnowledgeBase(object):
         for item in items:
             try:
                 _encoded = item[0].encode('utf-8')
-            except:
-                _encoded = 'http://www.mogujie.com/'
+            except Exception as e:
+                _encoded = item[0]
             pattern = get_pattern(_encoded)
             if self.discovered.get(pattern) is None:
                 results.append((_encoded, item[1], item[2], item[3]))

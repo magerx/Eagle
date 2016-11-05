@@ -49,10 +49,10 @@ var EvalJS = function (url, cookie_list, callbackFinal) {
         }
         ;
 
-        // 请求包的hook，中间要把css的请求干掉,不加载css减少加载时间
+        // 请求包的hook，中间要把css等无关的请求干掉,不加载css减少加载时间
         page.onResourceRequested = function (request) {
-            var requestData = JSON.parse(JSON.stringify(request, undefined, 4))
-            if ((/http:\/\/.+?\.css/gi).test(requestData['url']) || (/(image\/(png|jpeg|gif)|text\/css)$/).test(requestData.headers['Content-Type'])) {//requestData.headers['Content-Type'] == 'text/css') {
+            var requestData = JSON.parse(JSON.stringify(request, undefined, 4));
+            if ((/http[s]?:\/\/.+?\.(css|pdf|mp3|flv|ico)/gi).test(requestData['url']) || (/(image\/(png|jpeg|gif|x-icon)|(application\/x-(jpg|png|ico))|text\/css)$/).test(requestData.headers['Content-Type'])) {
                 // console.log('The url of the request is matching. Aborting: ' + requestData['url']);
                 request.abort();
             }
@@ -68,7 +68,7 @@ var EvalJS = function (url, cookie_list, callbackFinal) {
         };
 
         // POST头上有个P，GET是G
-        var t = url[0];
+        var method = url[0];
         url = url.substr(1);
 
         //return html contents and triggle onclick event autoly
@@ -78,7 +78,7 @@ var EvalJS = function (url, cookie_list, callbackFinal) {
                     page.evaluate(function () {
                         var ev = document.createEvent("MouseEvents");
                         ev.initEvent("click", true, true);
-                        var elements = document.querySelectorAll("*[onclick]")
+                        var elements = document.querySelectorAll("*[onclick]");
                         for (var i = 0; i < elements.length; i++) {
                             elements[i].dispatchEvent(ev)
                         }
@@ -91,9 +91,9 @@ var EvalJS = function (url, cookie_list, callbackFinal) {
             }
         }
 
-        if (t == 'P') {
-            urlpattern = url.split('?');
-            para = urlpattern[1];
+        if (method == 'P') {
+            var urlpattern = url.split('?');
+            var para = urlpattern[1];
             url = urlpattern[0];
             return page.open(url, 'post', para, function (status) {
                 htmlparse(status);

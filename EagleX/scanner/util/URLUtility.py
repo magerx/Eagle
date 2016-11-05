@@ -57,6 +57,7 @@ class changable_urlcomp(object):
 
 def real_url_process(link, url):
     """
+    处理多种相对路径的情况
     :link:      页面中的连接
     :url:       原始URL
     :return:    changable_urlcomp对象
@@ -68,8 +69,9 @@ def real_url_process(link, url):
     # query跟着url走，params全部清空，fragment如果link有的话就跟着link走
     url.query = link.query
     url.params = link.params = ''
+
     if link.fragment:
-        url.fragment = ''  # link.fragment
+        url.fragment = ''  # link.fragment,这里为了去重考虑，直接扔掉fragment
 
     # link中有域名
     if link.netloc:
@@ -90,7 +92,7 @@ def real_url_process(link, url):
         url.path = link.path
         return url
 
-    # link为相对路径，同时不以'/'结尾
+    # link为相对路径，同时不以'/'开头
     tmp = url.path.split('/')
     del tmp[-1]
     url.path = "{0}/{1}".format('/'.join(tmp), link.path)  # 相对路径则通过当前目录进行拼接+ '/' + link.path
@@ -110,6 +112,45 @@ def url_process(link, url):
     return urlunparse(u.to_standard())
 
 
+# TODO：修改下参数抽象
+def sort_query(query):
+    """
+    提取出参数，排序后连接，忽略具体的值，只有名字
+    :query:     URL中的查询字串
+    :return:    将key排序后组合成串
+    """
+
+    # 如果参数中没有"="，直接将该key置空
+    query = query.split('&')
+    for i in xrange(len(query)):
+        querys = query[i].split('=', 1)
+        query[i] = querys[0] if len(querys) == 2 else ''
+    query.sort()
+
+    # 链接成参数列表
+
+    # 对URL进行抽象处理
+    # newquery = list()
+
+    # 没搞懂当时为什么要做参数抽象
+    # for param in query:
+    #     if '=' in param:
+    #         tmp = param.split('=', 1)
+    #         if len(tmp[1]) == 0:
+    #             tmp[1] = 'null'
+    #         elif tmp[1].isdigit():
+    #             tmp[1] = '%d'
+    #         else:
+    #             tmp[1] = '%s'
+
+    # newquery.append('='.join(tmp))
+    # 去除value后重新拼装上去
+    newquery = '=&'.join(query)
+
+    return newquery  # parameters
+
+
+# TODO: 重写下URL相似
 def get_pattern(url):
     """
     将URL模式化，现在只是对最后一级进行模式替换，如果有需要可以替换
@@ -121,53 +162,43 @@ def get_pattern(url):
 
     parse = urlparse(url)
     path = parse.path
+    dirlist = path.split('/')
 
     # 参数抽离
     query = sort_query(parse.query)
 
     # 重新封装文件名,同后缀文件名为数字的统一认为相似
-    filename = os.path.splitext(path.split('/')[-1])
-    ext = filename[1]
-    prefix = filename[0]
+    filename = os.path.splitext(dirlist[-1])
+    prefix, ext = filename
+
     if prefix.isdigit():
         prefix = '%d'
+
+    elif 'htm' in ext:
+        if not prefix.isalpha():
+            prefix = '%w'
+
+    # 抽象目录中的数字、中文
+    if len(dirlist) > 2:
+        cn_pattern = re.compile(u'[\u4e00-\u9fa5]+')
+        for x in range(len(dirlist) - 1):
+            tmp_dir = dirlist[x]
+            if tmp_dir.isdigit():
+                dirlist[x] = "%d"
+            elif cn_pattern.search(tmp_dir):
+                dirlist[x] = "%ZH-CN"
+            elif len(tmp_dir) >= 5 and not tmp_dir.isalpha():  # 解决目录中出现类似23df334这样的情况
+                dirlist[x] = "{len}%$".format(len=len(tmp_dir))
+
+    dirlist[-1] = ''
+
     filename = prefix + ext
+    path = '/'.join(dirlist)
     path = '{0}/{1}'.format(os.path.dirname(path), filename)
-    url = urlunparse((parse.scheme, parse.netloc, path, parse.params, query, parse.fragment))
+
+    url = urlunparse((parse.scheme, parse.netloc, path, parse.params, query, ''))  # 相似处理时将fragment置空
 
     return url
-
-
-def sort_query(query):
-    """
-    提取出参数，排序后连接，忽略具体的值，只有名字
-    :query:     URL中的查询字串
-    :return:    将key排序后组合成串
-    """
-    query = query.split('&')
-    for i in xrange(0, len(query)):
-        query[i] = query[i][0:query[i].find('=')]
-    query.sort()
-
-    # 链接成参数列表
-
-    # 对URL进行抽象处理
-    newquery = list()
-
-    for param in query:
-        if '=' in param:
-            tmp = param.split('=')
-            if len(tmp[1]) == 0:
-                tmp[1] = 'null'
-            elif tmp[1].isdigit():
-                tmp[1] = '%d'
-            else:
-                tmp[1] = '%s'
-
-            newquery.append('='.join(tmp))
-    newquery = '&'.join(newquery)
-
-    return newquery  # parameters
 
 
 def extract_path_domain(url):
@@ -176,7 +207,7 @@ def extract_path_domain(url):
     :url:       目标URL
     :return:    (path, domain)
     """
-    domain = '{0}://{1}'.format(urlparse(url).scheme, urlparse(url).netloc)
+    domain = get_domain(url)
     path = urlparse(url).path
 
     if ';' in path:
@@ -216,4 +247,8 @@ def extract_netloc_path(url):
     :return:    (domain, path)
     """
     url = urlparse(url)
-    return url.netloc  # , url.path
+    return url.netloc
+
+
+if __name__ == '__main__':
+    print get_pattern('http://news.qq.com/a/20161104/040812.htm#p=1')

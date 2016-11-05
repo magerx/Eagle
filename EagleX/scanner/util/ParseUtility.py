@@ -20,7 +20,7 @@ def form_process(form, url):
     :url:       当前URL
     :return:    (url, form)非登录表单时返回None
     """
-    url = (url if '?' not in url else url.split('?')[-1])  # (url.find('?') == -1) else url[0:url.find('?')]
+    url = (url if '?' not in url else url.split('?')[-1])
 
     # 分析表单里的提交项
     form = analyze_form(form)
@@ -28,10 +28,10 @@ def form_process(form, url):
     # 合成GET格式的URL
     temp = ""
     for x in form:
-        temp += "{0}={1}&".format(x[0], x[1])  # x[0] + '=' + x[1] + '&'
-    if (len(temp) > 0):
-        temp = temp.rstrip('&')  # temp[0:len(temp) - 1]
-        url = "{0}?{1}".format(url, temp)  # url + '?' + temp
+        temp += "{0}={1}&".format(x[0], x[1])
+    if temp:
+        temp = temp.rstrip('&')
+        url = "{0}?{1}".format(url, temp)
 
     return url, form if is_normal_login_form(form) else None
 
@@ -43,15 +43,19 @@ def analyze_form(form):
     :return:    [(name, value, type), ...]
     """
     f_input = []
-    inputs = form.xpath('//input')
+    inputs = form.xpath('//*')  # 只要有name的都取
     for s_input in inputs:
         # 跳过没有name的选项
         if s_input.attrib.get('name') is None:
             continue
 
-        f_input.append((s_input.attrib.get('name'),
-                        s_input.attrib.get('value') if s_input.attrib.get('value') != None else '',
-                        s_input.attrib.get('type') if s_input.attrib.get('type') != None else ''))
+        f_input.append(
+            (
+                s_input.attrib.get('name'),
+                s_input.attrib.get('value', ''),  # if s_input.attrib.get('value') is not None else '',
+                s_input.attrib.get('type', '')  # if s_input.attrib.get('type') is not None else ''))
+            )
+        )
     return f_input
 
 
@@ -61,21 +65,22 @@ def is_normal_login_form(form):
     :form:      [(name, value, type), ...]
     :return:    True or False
     """
-    text_c = passwd_c = 0
+    # text_c = 0
+    passwd_c = 0
     for s_input in form:
-        text_c += 1 if s_input[2] == 'text' else 0
+        # text_c += 1 if s_input[2] == 'text' else 0
         passwd_c += 1 if s_input[2] == 'password' else 0
 
-    # username + password
-    if passwd_c == 1 and text_c >= 1:
+    # username + password or password only
+    if passwd_c >= 1:
         return True
     # password only
-    if passwd_c == 1 and text_c == 0:
-        return True
+    # if passwd_c == 1 and text_c == 0:
+    #     return True
     return False
 
 
-def parse_page(url, srcPage, depth):
+def parse_page(url, srcpage, depth):
     """
     分析页面，提取出URL
     :url:       当前URL
@@ -86,8 +91,8 @@ def parse_page(url, srcPage, depth):
     """
     depth += 1
     try:
-        page = etree.HTML(srcPage.decode('utf-8'))
-    except:
+        page = etree.HTML(srcpage.decode('utf-8'))
+    except Exception as e:
         return 0, [], []
 
     # 提取当前页面的状态码
@@ -99,22 +104,25 @@ def parse_page(url, srcPage, depth):
     # 存在有的乱七八糟的返回，302没有目标URL，这种情况不替换
     if code == 302 or code == 301:
         t = page.xpath('//a')
-        if (len(t) > 1):
-            url = page.xpath('//a')[1].attrib.get('href')
+        if len(t) > 1:
+            url = t[1].attrib.get('href')
     # 404直接返回空
     elif code == 404:
         return 404, [], []
 
     urls = []
+
     # 处理a链接，其他部分因为流量已经被hook了所以不用处理
-    links = page.xpath('//a')
+    links = page.xpath('//a | //area | //base')
     for link in links:
-        if (link.attrib.get('href') == None):
+        href = link.attrib.get('href')
+        if href is None:
             continue
 
         # 专门处理mailto和javascript
-        f_url = link.attrib.get('href').lstrip(' ')
-        if (f_url.startswith('mailto:') or f_url.startswith('javascript:')):
+        f_url = href.lstrip(' ')
+        pseudo_protocol = ['mailto', 'javascript', 'data', '#']
+        if f_url.split(':', 1)[0] in pseudo_protocol:
             continue
 
         f_url = url_process(f_url, url).rstrip(chr(0x0d))
@@ -124,7 +132,7 @@ def parse_page(url, srcPage, depth):
     # 处理img的src，因为关闭了phantomjs的imgload选项
     imgs = page.xpath('//img')
     for img in imgs:
-        if (img.attrib.get('src') == None):
+        if img.attrib.get('src') is None:
             continue
 
         f_url = url_process(img.attrib.get('src'), url).rstrip(chr(0x0d))
@@ -134,13 +142,14 @@ def parse_page(url, srcPage, depth):
     login_forms = []
     forms = page.xpath('//form')
     for form in forms:
-        if (form.attrib.get('action') == None):
+        if form.attrib.get('action') is None:
             continue
 
         f_url = url_process(form.attrib.get('action'), url).rstrip(chr(0x0d))
         f_url, login_form = form_process(form, f_url)
         is_post = form.attrib.get('method')
-        if is_post is None or is_post.lower() == 'get':
+
+        if is_post is None or is_post.lower() == 'post':
             is_post = 0
         else:
             is_post = 1

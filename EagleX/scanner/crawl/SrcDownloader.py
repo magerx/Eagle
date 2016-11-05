@@ -87,19 +87,23 @@ class SrcDownloader(object):
     def download_page(self, task, thread_no):
         """
         线程执行函数，用phantomjs下载页面并且处理JS，结果保存到数据库
-        :task:          (url, is_post)
+        :task:          (url, is_post，status_code, depth)
         :thread_no:     线程号
         """
 
         # 深度超过限制，文件类型不合法，或者是logout（这个也许有别的方法？）
-        if self.depth_limit < task[3] or \
-                not self.is_valid_filetype(task[0]) or \
-                re.compile(r'.*logout.*', re.IGNORECASE | re.DOTALL).match(task[0]):
+        if (self.depth_limit < task[3] or
+                not self.is_valid_filetype(task[0]) or
+                re.compile(r'.*logout.*', re.IGNORECASE | re.DOTALL).search(task[0])):
             return
         self.log(['%d %s' % (task[3], task[0])])
         # shell命令，phantomjs，在参数前面增加P/G代表POST或者GET
-        batcmd = self.executable + ('"P' if task[1] == 2 else '"G') + task[0].replace('"',
-                                                                                      '""') + '" "' + os.getcwd() + '/EagleX/extra/temp"'
+        # batcmd = self.executable + ('"P' if task[1] == 2 else '"G') + task[0].replace('"',
+        #                                                                               '""') + '" "' + os.getcwd() + '/EagleX/extra/temp"'
+        batcmd = '{phantomjs}"{method}{url}" "{tmpdir}/EagleX/extra/temp"'.format(phantomjs=self.executable,
+                                                                                  method=('P' if task[1] == 2 else 'G'),
+                                                                                  url=task[0].replace('"', '""'),
+                                                                                  tmpdir=os.getcwd())
 
         try:
 
@@ -112,12 +116,12 @@ class SrcDownloader(object):
             format_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
             f = open(self.temp_dir_path + 'CRASH.txt', 'a')
 
-            msg = '\n=================== ' + format_time + ' ===================\n' + \
-                  self.exc.output + \
-                  '\n*************************************\n' + \
-                  task[0] + \
-                  '\n*************************************\n' \
-                  '===========================================================\n'
+            msg = '''======================={time}========================
+                  ***********************************************************
+                  {task}
+                  ***********************************************************
+                  ===========================================================
+                  '''.format(time=format_time, task=task[0])
             f.write(msg)
             f.close()
             return
@@ -134,7 +138,7 @@ class SrcDownloader(object):
         extension = os.path.splitext(urlparse(url).path)[1].lstrip('.')
         # print extension
         if not extension:
-            extension = 'html'  # 如果没有匹配到后缀就用这个了
+            return True  # 如果没有匹配到后缀放行
         return self.filetype_whitelist.get(extension) is not None
 
     def exit(self):
