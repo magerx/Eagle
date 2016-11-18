@@ -190,7 +190,7 @@ class KnowledgeBase(object):
 
         # 可用的命令集合
         avalible_cmd = [SRC, URL, DOMAIN, LOGIN_FORM]
-        if not (cmd in avalible_cmd):
+        if cmd not in avalible_cmd:
             return 0
 
         # 读取下载器保存下来的源代码，无参数
@@ -219,7 +219,7 @@ class KnowledgeBase(object):
             for i in xrange(len(result)):
                 if 'logout' in result[i][0]:
                     del result[i]
-                    break
+                    continue
             # 这里又要解个码，其实还是编码到utf-8
             return [(r[0].encode('utf-8'), r[1], r[2], r[3]) for r in result]
 
@@ -256,7 +256,7 @@ class KnowledgeBase(object):
         """
         # 可用的命令列表
         avalible_cmd = [SRC, URL, SQL, JSON, STATUS, XSS, LOGIN_FORM, BRUTE, LOG, LFI, CMD, CODE, URL_REDIRECT, INFO]
-        if not (cmd in avalible_cmd):
+        if cmd not in avalible_cmd:
             return None
 
         # 对数据库的访问全部锁住

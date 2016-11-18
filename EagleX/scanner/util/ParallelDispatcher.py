@@ -46,10 +46,14 @@ class ParallelDispatcher(object):
             for x in freethread:
                 self.dispath(self.index_to_process, x)
                 self.index_to_process += 1
+                print self.index_to_process, len(self.data_source)
                 if self.index_to_process >= len(self.data_source):
                     break
 
             # 检测到退出标志，退出
+            for i in self.thread_list:
+                if i is not None and i.is_alive():
+                    print i
             if self.exit_flag:
                 break
             time.sleep(self.seconds_wait)

@@ -219,21 +219,9 @@ class Crawler(object):
         netloc = extract_netloc_path(url)
 
         # 如果没有设置名单，那就万物皆允，否则就开始匹配
-        # if  self.allow_domain.match(netloc) and \
-        #     self.restrict_path.match(path):
         if netloc.endswith(self.allow_domain):
             return True
         return False
-
-    def regulex_domain_path(self):
-        """
-        将允许域名中的通配符替换成正则，同时编译掉
-        已使用endswith方式代替,此函数弃用
-        """
-        self.allow_domain = re.compile(self.allow_domain.replace('.', '\.').replace('*', '.*?'))
-        if self.restrict_path == '/':
-            self.restrict_path = ''
-        self.restrict_path = re.compile(self.restrict_path + '.*?')
 
     def exit(self):
         self.exit_flag = True
