@@ -287,6 +287,13 @@ class VulScanner(object):
         # 线程之间因为互相依赖数据，目前处于将会一直卡死不会自动退出的情形
         # 需要上级线程间接杀死本线程
         while True:
+            thread_count = 0
+            for thread in thread_list:
+                if thread.is_alive():
+                    thread_count += 1
+                if thread_count == 0:
+                    self.exit_flag = True
+
             if self.exit_flag:
                 self.kb.clean_up()
                 for module in self.modules:

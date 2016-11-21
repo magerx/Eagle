@@ -163,6 +163,7 @@ class Crawler(object):
             # 从数据库中读取已爬取的页面源代码，返回(url, src, depth)
             # None，程序终结
             # ''，没有新的页面
+            end_tag = 0
             results = self.kb.read_data(SRC, CRAWLER, 0)
             # print results
             if results is None:
