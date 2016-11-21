@@ -169,7 +169,8 @@ def get_pattern(url):
 
     # 重新封装文件名,同后缀文件名为数字的统一认为相似
     filename = os.path.splitext(dirlist[-1])
-    prefix, ext = filename
+    # 为了去重考虑，将ext为空的都置为'/'
+    prefix, ext = filename if filename[1] else (filename[0], '/')
 
     if prefix.isdigit():
         prefix = '%d'
@@ -196,7 +197,8 @@ def get_pattern(url):
     path = '/'.join(dirlist)
     path = '{0}/{1}'.format(os.path.dirname(path), filename)
 
-    url = urlunparse((parse.scheme, parse.netloc, path, parse.params, query, ''))  # 相似处理时将fragment置空
+    # parse.scheme,相似处理时将fragment置空,同时为了去重考虑将scheme都设置为http
+    url = urlunparse(('http', parse.netloc, path, parse.params, query, '')) 
 
     return url
 
