@@ -167,6 +167,9 @@ class Crawler(object):
             # print results
             if results is None:
                 break
+            elif results == '':
+                end_tag += 1
+                time.sleep(5)
 
             # 分析页面，保存URL，更新当前页面的状态码
             if results != '':
@@ -180,6 +183,10 @@ class Crawler(object):
             results = self.kb.read_data(URL, CRAWLER, json_count)
             if results is None:
                 break
+            elif not results and end_tag == 1:
+                results = self.kb.read_data(URL, CRAWLER, json_count)
+                if not results:
+                    end_tag += 1
 
             # 将结果处理成JSON格式，保存到JSON数据库中
             if len(results) > 0:
@@ -190,7 +197,7 @@ class Crawler(object):
                 # print self.json_convertor
 
             # 检测到退出标志置位，退出
-            if self.exit_flag:
+            if self.exit_flag or end_tag == 2:
                 break
             time.sleep(self.seconds_wait)
 
